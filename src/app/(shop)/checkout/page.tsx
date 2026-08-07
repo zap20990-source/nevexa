@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -81,9 +81,18 @@ export default function CheckoutPage() {
     router.push("/account/orders");
   };
 
+  useEffect(() => {
+    if (items.length === 0) {
+      router.push("/cart");
+    }
+  }, [items.length, router]);
+
   if (items.length === 0) {
-    router.push("/cart");
-    return null;
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="skeleton w-8 h-8 rounded-full" />
+      </div>
+    );
   }
 
   return (
