@@ -83,7 +83,7 @@ const productsData: Record<string, any> = {
     brand: "PrintMax",
     category: "Impresiones 3D",
     has3D: true,
-    modelUrl: undefined,
+    modelUrl: "/models/helmet.glb",
     images: ["🖨️", "⚙️", "🎯", "🔩"],
     variants: [
       { id: "v6a", name: "Color", value: "Negro", stock: 5, price: null },
@@ -123,7 +123,7 @@ const productsData: Record<string, any> = {
     brand: "PrintMax",
     category: "Impresiones 3D",
     has3D: true,
-    modelUrl: undefined,
+    modelUrl: "/models/helmet.glb",
     images: ["🐉", "✨", "🎨", "📐"],
     variants: [
       { id: "v13a", name: "Color", value: "Rojo", stock: 10, price: null },
@@ -164,7 +164,7 @@ const productsData: Record<string, any> = {
     brand: "PrintMax",
     category: "Impresiones 3D",
     has3D: true,
-    modelUrl: undefined,
+    modelUrl: "/models/helmet.glb",
     images: ["🖊️", "⬡", "📐", "✨"],
     variants: [
       { id: "v14a", name: "Color", value: "Blanco mate", stock: 20, price: null },
@@ -203,7 +203,7 @@ const productsData: Record<string, any> = {
     brand: "PrintMax",
     category: "Impresiones 3D",
     has3D: true,
-    modelUrl: undefined,
+    modelUrl: "/models/helmet.glb",
     images: ["📱", "🔧", "📐", "✋"],
     variants: [
       { id: "v15a", name: "Color", value: "Negro", stock: 50, price: null },
@@ -241,7 +241,7 @@ const productsData: Record<string, any> = {
     brand: "PrintMax",
     category: "Impresiones 3D",
     has3D: true,
-    modelUrl: undefined,
+    modelUrl: "/models/helmet.glb",
     images: ["🪴", "🌿", "💎", "🏠"],
     variants: [
       { id: "v16a", name: "Color", value: "Blanco", stock: 15, price: null },
