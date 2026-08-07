@@ -19,7 +19,8 @@ import {
   ChevronRight,
   MessageCircle,
 } from "lucide-react";
-import { useCartStore, useFavoritesStore } from "@/store";
+import { useCartStore } from "@/store";
+import { useFavorites } from "@/hooks/useFavorites";
 import { WhatsAppButton } from "@/components/shop/WhatsAppButton";
 import { NexBanner } from "@/components/nex/Nex";
 import Product3DViewer from "@/components/shop/Product3DViewer";
@@ -281,8 +282,8 @@ export default function ProductDetailPage() {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0].id);
   const [viewMode, setViewMode] = useState<"gallery" | "3d">(product.has3D ? "3d" : "gallery");
   const addItem = useCartStore((s) => s.addItem);
-  const { isFavorite, toggle } = useFavoritesStore();
-  const fav = isFavorite(product.id);
+  const { isFavorite, toggle } = useFavorites();
+  const fav = slug ? isFavorite(slug) : false;
 
   const discount = product.comparePrice
     ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
@@ -352,12 +353,14 @@ export default function ProductDetailPage() {
                   -{discount}%
                 </span>
               )}
-              <button
-                onClick={() => toggle(product.id)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
-              >
-                <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
-              </button>
+              {session && (
+                <button
+                  onClick={() => toggle(slug || product.id)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+                >
+                  <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
+                </button>
+              )}
 
               {viewMode === "3d" && product.has3D ? (
                 <Product3DViewer type="figure" modelUrl={product.modelUrl} />

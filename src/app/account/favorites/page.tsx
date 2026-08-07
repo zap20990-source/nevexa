@@ -3,8 +3,8 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Heart, Star, X } from "lucide-react";
-import { useFavoritesStore } from "@/store";
+import { Heart, Star } from "lucide-react";
+import { useFavorites } from "@/hooks/useFavorites";
 
 const allProducts: Record<string, any> = {
   "1": { name: "Audífonos Pro", price: 299900, comparePrice: 499900, image: "🎧", rating: 4.8 },
@@ -35,7 +35,7 @@ const allProducts: Record<string, any> = {
 
 export default function FavoritesPage() {
   const { data: session, status } = useSession();
-  const { items, toggle } = useFavoritesStore();
+  const { items, toggle } = useFavorites();
 
   if (status === "unauthenticated") redirect("/login");
   if (status === "loading") return <div className="min-h-screen flex items-center justify-center"><div className="skeleton w-8 h-8 rounded-full" /></div>;
