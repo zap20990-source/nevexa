@@ -346,22 +346,23 @@ export default function ProductDetailPage() {
               </div>
             )}
 
-            {viewMode === "3d" && product.has3D ? (
+            <div className="relative">
+              {discount > 0 && (
+                <span className="absolute top-4 left-4 z-10 bg-danger text-white text-sm font-bold px-3 py-1 rounded-full">
+                  -{discount}%
+                </span>
+              )}
+              <button
+                onClick={() => toggle(product.id)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+              >
+                <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
+              </button>
+                {viewMode === "3d" && product.has3D ? (
               <Product3DViewer type="figure" modelUrl={product.modelUrl} />
             ) : (
               <>
-                <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px] relative">
-                  {discount > 0 && (
-                    <span className="absolute top-4 left-4 bg-danger text-white text-sm font-bold px-3 py-1 rounded-full">
-                      -{discount}%
-                    </span>
-                  )}
-                  <button
-                    onClick={() => toggle(product.id)}
-                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 dark:bg-dark-card/80 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform"
-                  >
-                    <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
-                  </button>
+                <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px]">
                   <motion.span
                     key={selectedImage}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -372,7 +373,7 @@ export default function ProductDetailPage() {
                   </motion.span>
                 </div>
                 <div className="flex gap-2 mt-4">
-                  {product.images.map((img, i) => (
+                  {product.images.map((img: string, i: number) => (
                     <button
                       key={i}
                       onClick={() => setSelectedImage(i)}
