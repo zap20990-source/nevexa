@@ -5,7 +5,6 @@ import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Nex } from "@/components/nex/Nex";
-import { WhatsAppButton } from "@/components/shop/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -116,7 +115,6 @@ export default function RootLayout({
           <main className="min-h-[calc(100vh-64px)]">{children}</main>
           <Footer />
           <Nex />
-          <WhatsAppButton />
         </Providers>
       </body>
     </html>
