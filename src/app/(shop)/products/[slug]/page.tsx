@@ -123,7 +123,7 @@ const productsData: Record<string, any> = {
     brand: "PrintMax",
     category: "Impresiones 3D",
     has3D: true,
-    modelUrl: undefined,
+    modelUrl: "/models/knight.stl",
     images: ["🐉", "✨", "🎨", "📐"],
     variants: [
       { id: "v13a", name: "Color", value: "Rojo", stock: 10, price: null },
@@ -354,7 +354,7 @@ export default function ProductDetailPage() {
               </button>
 
               {viewMode === "3d" && product.has3D ? (
-                <Product3DViewer type={product.id === "13" ? "dragon" : "figure"} modelUrl={product.modelUrl} />
+                <Product3DViewer type="figure" modelUrl={product.modelUrl} />
               ) : (
                 <>
                   <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px]">

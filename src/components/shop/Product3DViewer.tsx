@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef, useState, useMemo } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -10,6 +10,7 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import * as THREE from "three";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import { motion } from "framer-motion";
 import { RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 
@@ -25,6 +26,33 @@ function GLTFModel({ url }: { url: string }) {
   });
 
   return <primitive ref={ref} object={scene} scale={[1.5, 1.5, 1.5]} />;
+}
+
+function STLModel({ url }: { url: string }) {
+  const geometry = useLoader(STLLoader, url);
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  const material = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: "#6366f1",
+        roughness: 0.3,
+        metalness: 0.4,
+      }),
+    []
+  );
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += 0.005;
+      meshRef.current.position.y =
+        Math.sin(state.clock.elapsedTime * 0.8) * 0.05;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} geometry={geometry} material={material} scale={[1.5, 1.5, 1.5]} />
+  );
 }
 
 function DragonModel() {
@@ -216,6 +244,21 @@ function Model({
   type?: string;
 }) {
   if (modelUrl) {
+    const isSTL = modelUrl.toLowerCase().endsWith(".stl");
+    if (isSTL) {
+      return (
+        <Suspense
+          fallback={
+            <mesh>
+              <sphereGeometry args={[0.5, 16, 16]} />
+              <meshStandardMaterial color="#6366f1" wireframe />
+            </mesh>
+          }
+        >
+          <STLModel url={modelUrl} />
+        </Suspense>
+      );
+    }
     return (
       <Suspense
         fallback={
