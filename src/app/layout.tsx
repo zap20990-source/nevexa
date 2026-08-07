@@ -95,21 +95,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${poppins.variable}`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
-      <body className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white antialiased">
+      <body className="min-h-screen bg-white text-dark antialiased">
         <Providers>
           <Navbar />
           <main className="min-h-[calc(100vh-64px)]">{children}</main>

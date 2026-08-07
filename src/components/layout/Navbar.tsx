@@ -16,7 +16,6 @@ import {
   LogOut,
   ChevronDown,
 } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
 import { useCartStore } from "@/store";
 import { NAV_LINKS } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -82,8 +81,6 @@ export function Navbar() {
               >
                 <Search className="w-5 h-5" />
               </button>
-
-              <ThemeToggle />
 
               <Link
                 href="/account/favorites"
