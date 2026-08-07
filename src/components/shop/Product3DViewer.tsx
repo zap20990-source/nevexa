@@ -27,7 +27,106 @@ function GLTFModel({ url }: { url: string }) {
   return <primitive ref={ref} object={scene} scale={[1.5, 1.5, 1.5]} />;
 }
 
+function DragonModel() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.008;
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.15;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {/* Body */}
+      <mesh position={[0, 0.2, 0]}>
+        <capsuleGeometry args={[0.3, 0.9, 8, 16]} />
+        <meshStandardMaterial color="#c2410c" roughness={0.3} metalness={0.1} />
+      </mesh>
+      {/* Neck */}
+      <mesh position={[0, 0.5, 0.4]} rotation={[-0.4, 0, 0]}>
+        <capsuleGeometry args={[0.12, 0.4, 6, 8]} />
+        <meshStandardMaterial color="#c2410c" roughness={0.3} metalness={0.1} />
+      </mesh>
+      {/* Head */}
+      <mesh position={[0, 0.5, 0.75]}>
+        <capsuleGeometry args={[0.14, 0.25, 6, 8]} />
+        <meshStandardMaterial color="#9a3412" roughness={0.2} metalness={0.15} />
+      </mesh>
+      {/* Snout */}
+      <mesh position={[0, 0.45, 0.92]}>
+        <coneGeometry args={[0.08, 0.2, 6]} />
+        <meshStandardMaterial color="#7c2d12" roughness={0.2} metalness={0.1} />
+      </mesh>
+      {/* Eyes */}
+      <mesh position={[0.08, 0.55, 0.78]}>
+        <sphereGeometry args={[0.03, 8, 8]} />
+        <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.8} roughness={0} />
+      </mesh>
+      <mesh position={[-0.08, 0.55, 0.78]}>
+        <sphereGeometry args={[0.03, 8, 8]} />
+        <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.8} roughness={0} />
+      </mesh>
+      {/* Horns */}
+      <mesh position={[0.08, 0.65, 0.72]} rotation={[0.3, 0, 0.3]}>
+        <coneGeometry args={[0.03, 0.15, 6]} />
+        <meshStandardMaterial color="#fcd34d" roughness={0.2} />
+      </mesh>
+      <mesh position={[-0.08, 0.65, 0.72]} rotation={[0.3, 0, -0.3]}>
+        <coneGeometry args={[0.03, 0.15, 6]} />
+        <meshStandardMaterial color="#fcd34d" roughness={0.2} />
+      </mesh>
+      {/* Tail */}
+      <mesh position={[0, 0.1, -0.6]} rotation={[0.5, 0, 0]}>
+        <capsuleGeometry args={[0.08, 0.5, 6, 8]} />
+        <meshStandardMaterial color="#c2410c" roughness={0.2} />
+      </mesh>
+      <mesh position={[0, -0.1, -0.85]} rotation={[0.8, 0, 0]}>
+        <coneGeometry args={[0.05, 0.25, 6]} />
+        <meshStandardMaterial color="#7c2d12" roughness={0.2} />
+      </mesh>
+      {/* Wings */}
+      <mesh position={[0.35, 0.3, 0]} rotation={[0, -0.2, -1.2]}>
+        <capsuleGeometry args={[0.04, 0.7, 4, 4]} />
+        <meshStandardMaterial color="#f97316" roughness={0.4} metalness={0.05} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh position={[-0.35, 0.3, 0]} rotation={[0, 0.2, 1.2]}>
+        <capsuleGeometry args={[0.04, 0.7, 4, 4]} />
+        <meshStandardMaterial color="#f97316" roughness={0.4} metalness={0.05} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Wing membrane right */}
+      <mesh position={[0.3, 0.25, 0.05]} rotation={[0.1, 0, -0.6]}>
+        <planeGeometry args={[0.5, 0.35]} />
+        <meshStandardMaterial color="#fb923c" roughness={0.4} side={THREE.DoubleSide} transparent opacity={0.6} />
+      </mesh>
+      {/* Wing membrane left */}
+      <mesh position={[-0.3, 0.25, 0.05]} rotation={[0.1, 0, 0.6]}>
+        <planeGeometry args={[0.5, 0.35]} />
+        <meshStandardMaterial color="#fb923c" roughness={0.4} side={THREE.DoubleSide} transparent opacity={0.6} />
+      </mesh>
+      {/* Legs */}
+      {[[0.18, -0.1, 0.15], [-0.18, -0.1, 0.15], [0.15, -0.1, -0.3], [-0.15, -0.1, -0.3]].map((pos, i) => (
+        <mesh key={i} position={pos as [number,number,number]}>
+          <capsuleGeometry args={[0.05, 0.25, 4, 4]} />
+          <meshStandardMaterial color="#7c2d12" roughness={0.2} />
+        </mesh>
+      ))}
+      {/* Spikes along back */}
+      {[-0.3, -0.1, 0.1, 0.3].map((z, i) => (
+        <mesh key={`s${i}`} position={[0, 0.5, z]} rotation={[-0.3, 0, 0]}>
+          <coneGeometry args={[0.04, 0.12, 4]} />
+          <meshStandardMaterial color="#fcd34d" roughness={0.2} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 function ProceduralModel({ type = "figure" }: { type?: string }) {
+  if (type === "dragon") {
+    return <DragonModel />;
+  }
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
