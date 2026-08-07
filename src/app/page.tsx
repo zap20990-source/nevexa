@@ -18,6 +18,7 @@ const slides = [
     title: "Bienvenido al futuro de las compras",
     subtitle: "Tecnología, innovación y los mejores precios en un solo lugar.",
     cta: "Comprar ahora",
+    ctaLink: "/products",
     gradient: "from-primary via-blue-700 to-indigo-900",
     image: "🎯",
   },
@@ -25,13 +26,23 @@ const slides = [
     title: "Ofertas increíbles",
     subtitle: "Hasta 50% de descuento en productos seleccionados.",
     cta: "Ver ofertas",
+    ctaLink: "/products?discount=true",
     gradient: "from-purple-600 via-pink-600 to-rose-700",
     image: "🏷️",
+  },
+  {
+    title: "Nueva: Impresiones 3D",
+    subtitle: "Figuras, decoración y piezas personalizadas impresas en 3D. ¡Vista interactiva en cada producto!",
+    cta: "Explorar colección 3D",
+    ctaLink: "/categories/impresiones-3d",
+    gradient: "from-violet-600 via-indigo-600 to-blue-800",
+    image: "🖨️",
   },
   {
     title: "Nuevos productos",
     subtitle: "Descubre lo último en tecnología, gaming y más.",
     cta: "Explorar",
+    ctaLink: "/products",
     gradient: "from-emerald-600 via-teal-600 to-cyan-700",
     image: "🚀",
   },
@@ -138,14 +149,14 @@ export default function HomePage() {
 
               <div className="flex flex-wrap gap-3 mb-10">
                 <button
-                  onClick={() => router.push("/products")}
+                  onClick={() => router.push(slides[currentSlide].ctaLink || "/products")}
                   className="btn-primary bg-white text-primary hover:bg-white/90 hover:text-primary-dark px-8 py-4 text-base group"
                 >
                   {slides[currentSlide].cta}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
-                  onClick={() => router.push("/products")}
+                  onClick={() => router.push(slides[currentSlide].ctaLink || "/products")}
                   className="btn-outline border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-8 py-4 text-base"
                 >
                   Explorar <Sparkles className="w-5 h-5 ml-2" />
