@@ -1,7 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { MapPin, Plus, Check, Trash2, X } from "lucide-react";
@@ -40,7 +38,6 @@ function saveAddresses(addrs: Address[]) {
 }
 
 export default function AddressesPage() {
-  const { data: session, status } = useSession();
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -52,8 +49,7 @@ export default function AddressesPage() {
     setLoaded(true);
   });
 
-  if (status === "unauthenticated") redirect("/login");
-  if (status === "loading" || !loaded) return <div className="min-h-screen flex items-center justify-center"><div className="skeleton w-8 h-8 rounded-full" /></div>;
+  if (!loaded) return <div className="min-h-screen flex items-center justify-center"><div className="skeleton w-8 h-8 rounded-full" /></div>;
 
   const handleSave = () => {
     if (!form.street || !form.city || !form.state || !form.zipCode) {

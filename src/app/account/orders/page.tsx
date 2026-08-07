@@ -1,7 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   Package,
@@ -26,11 +24,6 @@ const statusConfig: Record<string, { icon: any; color: string; label: string }> 
 };
 
 export default function OrdersPage() {
-  const { data: session, status } = useSession();
-
-  if (status === "unauthenticated") redirect("/login");
-  if (status === "loading") return <div className="min-h-screen flex items-center justify-center"><div className="skeleton w-8 h-8 rounded-full" /></div>;
-
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-dark">
       <div className="container-page py-8">

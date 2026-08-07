@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import {
   Minus,
   Plus,
@@ -19,7 +18,6 @@ import { useCartStore, type CartProduct } from "@/store";
 import { WhatsAppButton } from "@/components/shop/WhatsAppButton";
 
 export default function CartPage() {
-  const { data: session } = useSession();
   const { items, removeItem, updateQuantity, applyCoupon, removeCoupon, coupon, getSubtotal, getTotal, clearCart } = useCartStore();
   const [couponCode, setCouponCode] = useState("");
 
@@ -240,23 +238,9 @@ export default function CartPage() {
                 </div>
               )}
 
-              {session ? (
-                <Link href="/checkout" className="btn-primary w-full text-base">
-                  Ir a pagar <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              ) : (
-                <div className="space-y-2">
-                  <div className="bg-primary-lighter dark:bg-primary/10 rounded-xl p-3 text-center">
-                    <p className="text-sm text-primary font-medium mb-2">Inicia sesión para continuar con tu compra</p>
-                    <Link href="/login" className="btn-primary w-full text-sm">
-                      Iniciar sesión
-                    </Link>
-                  </div>
-                  <p className="text-xs text-center text-gray-400">
-                    ¿No tienes cuenta? <Link href="/register" className="text-primary hover:underline">Regístrate</Link>
-                  </p>
-                </div>
-              )}
+              <Link href="/checkout" className="btn-primary w-full text-base">
+                Ir a pagar <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
 
               <WhatsAppButton variant="inline" label="Solicitar cotización" />
 
