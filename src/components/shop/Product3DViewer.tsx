@@ -32,6 +32,19 @@ function STLModel({ url }: { url: string }) {
   const geometry = useLoader(STLLoader, url);
   const meshRef = useRef<THREE.Mesh>(null);
 
+  const centeredGeometry = useMemo(() => {
+    const geo = geometry.clone();
+    geo.computeBoundingBox();
+    const bb = geo.boundingBox;
+    if (bb) {
+      const cx = (bb.max.x + bb.min.x) / 2;
+      const cy = (bb.max.y + bb.min.y) / 2;
+      const cz = (bb.max.z + bb.min.z) / 2;
+      geo.translate(-cx, -cy, -cz);
+    }
+    return geo;
+  }, [geometry]);
+
   const material = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -51,7 +64,7 @@ function STLModel({ url }: { url: string }) {
   });
 
   return (
-    <mesh ref={meshRef} geometry={geometry} material={material} scale={[1.5, 1.5, 1.5]} />
+    <mesh ref={meshRef} geometry={centeredGeometry} material={material} scale={[1.5, 1.5, 1.5]} />
   );
 }
 
