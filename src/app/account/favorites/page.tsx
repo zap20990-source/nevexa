@@ -13,6 +13,24 @@ const allProducts: Record<string, any> = {
   "4": { name: "Monitor 27\" 4K", price: 1249900, comparePrice: 1599900, image: "🖥️", rating: 4.6 },
   "5": { name: "Silla Ergonómica", price: 899900, image: "💺", rating: 4.5 },
   "6": { name: "Impresora 3D Pro", price: 1899900, comparePrice: 2499900, image: "🖨️", rating: 4.8 },
+  "7": { name: "Cámara Web 4K", price: 349900, comparePrice: 449900, image: "📸", rating: 4.4 },
+  "8": { name: "Hub USB-C", price: 89900, image: "🔌", rating: 4.3 },
+  "9": { name: "Lámpara LED Escritorio", price: 79900, comparePrice: 129900, image: "💡", rating: 4.2 },
+  "10": { name: "Mochila Antirrobo", price: 159900, image: "🎒", rating: 4.6 },
+  "11": { name: "Cargador Inalámbrico", price: 49900, comparePrice: 79900, image: "🔋", rating: 4.1 },
+  "12": { name: "Auriculares Bluetooth", price: 159900, comparePrice: 249900, image: "🎵", rating: 4.7 },
+  "13": { name: "Figura 3D Dragón", price: 49900, image: "🐉", rating: 4.9 },
+  "14": { name: "Portalápices Geométrico", price: 29900, comparePrice: 39900, image: "🖊️", rating: 4.6 },
+  "15": { name: "Soporte para Celular", price: 19900, image: "📱", rating: 4.7 },
+  "16": { name: "Maceta Geométrica", price: 34900, comparePrice: 49900, image: "🪴", rating: 4.5 },
+  "17": { name: "Comedero para Mascotas", price: 59900, image: "🐕", rating: 4.4 },
+  "18": { name: "Juguete Interactivo", price: 29900, comparePrice: 39900, image: "🎾", rating: 4.3 },
+  "19": { name: "Camiseta Premium", price: 89900, image: "👕", rating: 4.5 },
+  "20": { name: "Chaqueta Deportiva", price: 189900, comparePrice: 249900, image: "🧥", rating: 4.6 },
+  "21": { name: "Taladro Inalámbrico", price: 249900, comparePrice: 349900, image: "🔧", rating: 4.7 },
+  "22": { name: "Juego de Destornilladores", price: 59900, image: "🪛", rating: 4.4 },
+  "23": { name: "Cojín Decorativo", price: 39900, image: "🛋️", rating: 4.2 },
+  "24": { name: "Set de Velas Aromáticas", price: 49900, comparePrice: 69900, image: "🕯️", rating: 4.5 },
 };
 
 export default function FavoritesPage() {
@@ -22,7 +40,12 @@ export default function FavoritesPage() {
   if (status === "unauthenticated") redirect("/login");
   if (status === "loading") return <div className="min-h-screen flex items-center justify-center"><div className="skeleton w-8 h-8 rounded-full" /></div>;
 
-  const favoriteProducts = items.map((id) => ({ id, ...allProducts[id] })).filter(Boolean);
+  const favoriteProducts = items
+    .map((id) => {
+      const product = allProducts[id];
+      return product ? { id, ...product } : null;
+    })
+    .filter(Boolean);
 
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-dark">
@@ -65,9 +88,9 @@ export default function FavoritesPage() {
               <div key={product.id} className="card overflow-hidden group relative">
                 <button
                   onClick={() => toggle(product.id)}
-                  className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 dark:bg-dark-card/80 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform"
+                  className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
                 >
-                  <X className="w-4 h-4 text-gray-400" />
+                  <Heart className="w-4 h-4 fill-red-500 text-red-500" />
                 </button>
                 <Link href={`/products/${product.id}`}>
                   <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-5xl">
