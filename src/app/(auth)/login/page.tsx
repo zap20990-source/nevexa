@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,10 +11,12 @@ import { Eye, EyeOff, Mail, Lock, Chrome } from "lucide-react";
 import { loginSchema, type LoginInput } from "@/lib/validations";
 import toast from "react-hot-toast";
 
-export default function LoginPage() {
+function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const {
     register,
@@ -37,7 +39,7 @@ export default function LoginPage() {
         toast.error("Email o contraseña incorrectos");
       } else {
         toast.success("¡Bienvenido!");
-        router.push("/");
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch {
@@ -174,5 +176,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><div className="skeleton w-8 h-8 rounded-full" /></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -2,7 +2,10 @@ import bcrypt from "bcryptjs";
 import fs from "fs";
 import path from "path";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR =
+  process.env.VERCEL || process.env.NODE_ENV === "production"
+    ? "/tmp"
+    : path.join(process.cwd(), "data");
 const USERS_FILE = path.join(DATA_DIR, "users.json");
 
 interface StoredUser {
@@ -27,8 +30,30 @@ function readUsers(): { users: StoredUser[] } {
   try {
     if (!fs.existsSync(USERS_FILE)) {
       if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
-      fs.writeFileSync(USERS_FILE, JSON.stringify({ users: [] }, null, 2));
-      return { users: [] };
+      const seedData = {
+        users: [
+          {
+            id: "admin-demo",
+            name: "Admin NEVEXA",
+            email: "admin@nevexa.com",
+            password: "$2a$12$LJ3m4ys3GZfnYMz8kVsKZe0xGKeqN7rVqNHVNGpCB5zGXqOHqVpIq",
+            role: "admin",
+            phone: "3000000000",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+          {
+            id: "user-demo",
+            name: "Cliente Demo",
+            email: "cliente@nevexa.com",
+            password: "$2a$12$LJ3m4ys3GZfnYMz8kVsKZe0xGKeqN7rVqNHVNGpCB5zGXqOHqVpIq",
+            role: "user",
+            phone: "3001112233",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+        ],
+      };
+      fs.writeFileSync(USERS_FILE, JSON.stringify(seedData, null, 2));
+      return seedData;
     }
     const data = fs.readFileSync(USERS_FILE, "utf-8");
     return JSON.parse(data);

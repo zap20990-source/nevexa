@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "admin-demo",
+      "name": "Admin NEVEXA",
+      "email": "admin@nevexa.com",
+      "password": "$2a$12$LJ3m4ys3GZfnYMz8kVsKZe0xGKeqN7rVqNHVNGpCB5zGXqOHqVpIq",
+      "role": "admin",
+      "phone": "3000000000",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "user-demo",
+      "name": "Cliente Demo",
+      "email": "cliente@nevexa.com",
+      "password": "$2a$12$LJ3m4ys3GZfnYMz8kVsKZe0xGKeqN7rVqNHVNGpCB5zGXqOHqVpIq",
+      "role": "user",
+      "phone": "3001112233",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
