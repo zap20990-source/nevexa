@@ -41,19 +41,21 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 glass border-b border-gray-200/50 dark:border-gray-700/30">
+      <header className="sticky top-0 z-50 bg-white/85 dark:bg-dark/85 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800">
         <div className="container-page">
-          <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center group">
-            <Image
-              src="/images/logo.png"
-              alt="NEVEXA"
-              width={160}
-              height={40}
-              className="h-10 w-auto group-hover:scale-105 transition-transform"
-              priority
-            />
-          </Link>
+          <div className="flex items-center justify-between h-[72px]">
+            <div className="flex items-center gap-1">
+              <Link href="/" className="flex items-center py-2">
+                <Image
+                  src="/images/logo.png"
+                  alt="NEVEXA"
+                  width={160}
+                  height={44}
+                  className="h-11 w-auto"
+                  priority
+                />
+              </Link>
+            </div>
 
             <nav className="hidden lg:flex items-center gap-1">
               {NAV_LINKS.map((link) => (
