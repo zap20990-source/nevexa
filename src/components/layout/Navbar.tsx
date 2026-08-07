@@ -57,7 +57,7 @@ export function Navbar() {
                   />
                 </div>
                 <span className="text-xl font-bold font-heading text-dark dark:text-white group-hover:text-primary transition-colors hidden sm:block">
-                  NEVEXA
+                  EVEXA
                 </span>
               </Link>
             </div>

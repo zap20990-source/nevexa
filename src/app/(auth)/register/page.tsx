@@ -68,7 +68,7 @@ export default function RegisterPage() {
               />
             </div>
             <span className="text-2xl font-bold font-heading text-dark dark:text-white group-hover:text-primary transition-colors">
-              NEVEXA
+              EVEXA
             </span>
           </Link>
           <h1 className="text-2xl font-bold font-heading text-dark dark:text-white mb-2">

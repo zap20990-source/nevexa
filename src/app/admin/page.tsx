@@ -70,7 +70,7 @@ export default function AdminDashboard() {
                 className="h-full w-auto"
               />
             </div>
-            {sidebarOpen && <span className="font-bold font-heading text-dark dark:text-white text-sm">NEVEXA</span>}
+            {sidebarOpen && <span className="font-bold font-heading text-dark dark:text-white text-sm">EVEXA</span>}
           </Link>
         </div>
         <nav className="flex-1 p-3 space-y-1">

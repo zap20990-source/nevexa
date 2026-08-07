@@ -75,7 +75,7 @@ export function Footer() {
                 />
               </div>
               <span className="text-xl font-bold text-white group-hover:text-primary transition-colors">
-                NEVEXA
+                EVEXA
               </span>
             </Link>
             <p className="text-sm text-gray-400 mb-6">
