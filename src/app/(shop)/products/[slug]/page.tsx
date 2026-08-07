@@ -358,38 +358,39 @@ export default function ProductDetailPage() {
               >
                 <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
               </button>
-                {viewMode === "3d" && product.has3D ? (
-              <Product3DViewer type="figure" modelUrl={product.modelUrl} />
-            ) : (
-              <>
-                <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px]">
-                  <motion.span
-                    key={selectedImage}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                  >
-                    {product.images[selectedImage]}
-                  </motion.span>
-                </div>
-                <div className="flex gap-2 mt-4">
-                  {product.images.map((img: string, i: number) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedImage(i)}
-                      className={`w-16 h-16 rounded-xl border-2 transition-all bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-2xl ${
-                        selectedImage === i
-                          ? "border-primary"
-                          : "border-transparent hover:border-gray-300"
-                      }`}
+
+              {viewMode === "3d" && product.has3D ? (
+                <Product3DViewer type="figure" modelUrl={product.modelUrl} />
+              ) : (
+                <>
+                  <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px]">
+                    <motion.span
+                      key={selectedImage}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200 }}
                     >
-                      {img}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+                      {product.images[selectedImage]}
+                    </motion.span>
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    {product.images.map((img: string, i: number) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedImage(i)}
+                        className={`w-16 h-16 rounded-xl border-2 transition-all bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-2xl ${
+                          selectedImage === i
+                            ? "border-primary"
+                            : "border-transparent hover:border-gray-300"
+                        }`}
+                      >
+                        {img}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
 
           {/* Info */}
           <div>
