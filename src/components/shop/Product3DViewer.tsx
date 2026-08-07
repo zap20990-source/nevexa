@@ -1,25 +1,40 @@
 "use client";
 
 import { Suspense, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import {
   OrbitControls,
   PerspectiveCamera,
   Environment,
   ContactShadows,
-  useTexture,
+  useGLTF,
 } from "@react-three/drei";
 import * as THREE from "three";
 import { motion } from "framer-motion";
 import { RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 
-function Model({ type = "figure" }: { type?: string }) {
+function GLTFModel({ url }: { url: string }) {
+  const { scene } = useGLTF(url);
+  const ref = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y += 0.005;
+      ref.current.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.05;
+    }
+  });
+
+  return <primitive ref={ref} object={scene} scale={[1.5, 1.5, 1.5]} />;
+}
+
+function ProceduralModel({ type = "figure" }: { type?: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.005;
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.1;
+      meshRef.current.position.y =
+        Math.sin(state.clock.elapsedTime * 0.8) * 0.1;
     }
   });
 
@@ -30,19 +45,30 @@ function Model({ type = "figure" }: { type?: string }) {
     <mesh ref={meshRef} scale={[1.8, 1.8, 1.8]}>
       {type === "figure" && (
         <>
-          {/* Cuerpo */}
           <cylinderGeometry args={[0.4, 0.6, 1.2, 32]} />
-          {/* Cabeza */}
           <mesh position={[0, 0.85, 0]}>
             <sphereGeometry args={[0.35, 32, 32]} />
-            <meshStandardMaterial color={color} emissive={emissive} emissiveIntensity={0.3} roughness={0.2} metalness={0.1} />
+            <meshStandardMaterial
+              color={color}
+              emissive={emissive}
+              emissiveIntensity={0.3}
+              roughness={0.2}
+              metalness={0.1}
+            />
           </mesh>
-          {/* Base */}
           <mesh position={[0, -0.7, 0]}>
             <torusGeometry args={[0.55, 0.08, 16, 32]} />
-            <meshStandardMaterial color={color} roughness={0.3} metalness={0.3} />
+            <meshStandardMaterial
+              color={color}
+              roughness={0.3}
+              metalness={0.3}
+            />
           </mesh>
-          <meshStandardMaterial color={color} roughness={0.3} metalness={0.2} />
+          <meshStandardMaterial
+            color={color}
+            roughness={0.3}
+            metalness={0.2}
+          />
         </>
       )}
       {type === "abstract" && (
@@ -57,8 +83,14 @@ function Model({ type = "figure" }: { type?: string }) {
             wireframe={false}
           />
           <lineSegments>
-            <edgesGeometry args={[new THREE.IcosahedronGeometry(0.7, 1)]} />
-            <lineBasicMaterial color="#93c5fd" transparent opacity={0.3} />
+            <edgesGeometry
+              args={[new THREE.IcosahedronGeometry(0.7, 1)]}
+            />
+            <lineBasicMaterial
+              color="#93c5fd"
+              transparent
+              opacity={0.3}
+            />
           </lineSegments>
         </>
       )}
@@ -77,6 +109,30 @@ function Model({ type = "figure" }: { type?: string }) {
   );
 }
 
+function Model({
+  modelUrl,
+  type = "figure",
+}: {
+  modelUrl?: string;
+  type?: string;
+}) {
+  if (modelUrl) {
+    return (
+      <Suspense
+        fallback={
+          <mesh>
+            <sphereGeometry args={[0.5, 16, 16]} />
+            <meshStandardMaterial color="#3b82f6" wireframe />
+          </mesh>
+        }
+      >
+        <GLTFModel url={modelUrl} />
+      </Suspense>
+    );
+  }
+  return <ProceduralModel type={type} />;
+}
+
 function Grid() {
   return (
     <gridHelper
@@ -88,11 +144,13 @@ function Grid() {
 
 interface Product3DViewerProps {
   type?: string;
+  modelUrl?: string;
   className?: string;
 }
 
 export default function Product3DViewer({
   type = "figure",
+  modelUrl,
   className = "",
 }: Product3DViewerProps) {
   const controlsRef = useRef<any>(null);
@@ -113,11 +171,11 @@ export default function Product3DViewer({
         className="w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900"
       >
         <div className="absolute top-3 left-3 z-10 flex gap-1.5">
-          <span className="bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full badge-3d">
+          <span className="bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full">
             3D
           </span>
           <span className="bg-white/80 dark:bg-dark-card/80 backdrop-blur text-dark dark:text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1">
-            Interactivo
+            {modelUrl ? "Modelo real" : "Demostración"}
           </span>
         </div>
 
@@ -154,9 +212,16 @@ export default function Product3DViewer({
               intensity={0.8}
               castShadow
             />
-            <directionalLight position={[-3, 2, -2]} intensity={0.4} />
-            <pointLight position={[0, 2, 2]} intensity={0.3} color="#3b82f6" />
-            <Model type={type} />
+            <directionalLight
+              position={[-3, 2, -2]}
+              intensity={0.4}
+            />
+            <pointLight
+              position={[0, 2, 2]}
+              intensity={0.3}
+              color="#3b82f6"
+            />
+            <Model modelUrl={modelUrl} type={type} />
             <Grid />
             <ContactShadows
               position={[0, -1.5, 0]}
@@ -180,7 +245,8 @@ export default function Product3DViewer({
         </Canvas>
       </motion.div>
       <p className="text-center text-xs text-gray-400 mt-2 flex items-center justify-center gap-1">
-        <RotateCcw className="w-3 h-3" /> Arrastra para girar · Scroll para zoom
+        <RotateCcw className="w-3 h-3" /> Arrastra para girar · Scroll para
+        zoom
       </p>
     </div>
   );
