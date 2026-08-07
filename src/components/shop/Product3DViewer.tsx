@@ -48,9 +48,10 @@ function STLModel({ url }: { url: string }) {
   const material = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#6366f1",
-        roughness: 0.3,
-        metalness: 0.4,
+        color: "#e2e8f0",
+        roughness: 0.25,
+        metalness: 0.1,
+        flatShading: false,
       }),
     []
   );
