@@ -95,7 +95,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${poppins.variable}`}
     >
-      <body className="min-h-screen bg-white text-dark antialiased">
+      <body className="min-h-screen bg-dark text-gray-100 antialiased">
         <Providers>
           <Navbar />
           <main className="min-h-[calc(100vh-64px)]">{children}</main>
