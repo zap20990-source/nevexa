@@ -38,6 +38,7 @@ const product = {
   brand: "AudioTech",
   category: "Tecnología",
   has3D: true,
+  modelUrl: undefined,
   images: ["🎧", "🎵", "🎼", "🎤"],
   variants: [
     { id: "v1", name: "Color", value: "Negro", stock: 20, price: null },
