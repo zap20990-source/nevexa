@@ -5,15 +5,15 @@ export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="text-center max-w-md">
-        <div className="relative mx-auto mb-8 w-32 h-32">
-          <div className="absolute inset-0 bg-primary/5 rounded-full blur-2xl" />
-          <div className="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-primary/5 to-blue-400/5 flex items-center justify-center overflow-hidden border border-primary/10">
+        <div className="relative mx-auto mb-8 w-28 h-28">
+          <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl" />
+          <div className="w-28 h-28 mx-auto rounded-full overflow-hidden shadow-lg">
             <Image
               src="/images/nex.png"
               alt="NEX"
-              width={80}
-              height={80}
-              className="w-20 h-20 object-contain"
+              width={112}
+              height={112}
+              className="w-full h-full object-cover"
             />
           </div>
         </div>

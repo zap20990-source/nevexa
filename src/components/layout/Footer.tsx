@@ -64,13 +64,13 @@ export function Footer() {
       <div className="container-page">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4 group">
+            <Link href="/" className="flex items-center mb-4 group">
               <Image
                 src="/images/logo.png"
                 alt="NEVEXA"
                 width={160}
                 height={40}
-                className="h-10 w-auto brightness-0 invert group-hover:scale-105 transition-transform"
+                className="h-10 w-auto group-hover:scale-105 transition-transform"
               />
             </Link>
             <p className="text-sm text-gray-400 mb-6">

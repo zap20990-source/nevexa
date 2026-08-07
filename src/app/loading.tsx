@@ -6,13 +6,13 @@ export default function Loading() {
       <div className="text-center">
         <div className="relative mx-auto mb-6 w-20 h-20">
           <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse" />
-          <div className="w-20 h-20 rounded-full bg-white dark:bg-dark-card border border-primary/10 flex items-center justify-center overflow-hidden animate-bounce relative">
+          <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg animate-bounce relative">
             <Image
               src="/images/nex.png"
               alt="NEX"
-              width={48}
-              height={48}
-              className="w-12 h-12 object-contain"
+              width={80}
+              height={80}
+              className="w-full h-full object-cover"
             />
           </div>
         </div>

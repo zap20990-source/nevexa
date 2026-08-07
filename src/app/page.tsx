@@ -118,9 +118,9 @@ export default function HomePage() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="inline-flex items-center gap-3 mb-4 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/10">
-                    <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center overflow-hidden flex-shrink-0">
-                      <Image src="/images/nex.png" alt="NEX" width={22} height={22} className="w-5 h-5 object-contain" />
+                  <div className="inline-flex items-center gap-3 mb-4 bg-white/10 backdrop-blur-sm rounded-full pl-1.5 pr-4 py-1.5 border border-white/10">
+                    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                      <Image src="/images/nex.png" alt="NEX" width={32} height={32} className="w-full h-full object-cover" />
                     </div>
                     <span className="text-white/90 text-sm font-medium">
                       NEX te da la bienvenida

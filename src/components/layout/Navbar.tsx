@@ -44,13 +44,13 @@ export function Navbar() {
       <header className="sticky top-0 z-50 glass border-b border-gray-200/50 dark:border-gray-700/30">
         <div className="container-page">
           <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center group">
             <Image
               src="/images/logo.png"
               alt="NEVEXA"
               width={160}
               height={40}
-              className="h-10 w-auto group-hover:scale-105 transition-transform drop-shadow-sm"
+              className="h-10 w-auto group-hover:scale-105 transition-transform"
               priority
             />
           </Link>

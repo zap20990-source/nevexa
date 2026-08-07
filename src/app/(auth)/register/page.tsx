@@ -62,7 +62,7 @@ export default function RegisterPage() {
               alt="NEVEXA"
               width={180}
               height={48}
-              className="h-12 w-auto drop-shadow-sm"
+              className="h-12 w-auto"
               priority
             />
           </Link>

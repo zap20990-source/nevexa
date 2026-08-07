@@ -67,13 +67,13 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
             className="absolute bottom-full mb-5 right-0 bg-white dark:bg-dark-card rounded-2xl shadow-xl shadow-black/10 border border-gray-100 dark:border-gray-700 p-4 max-w-[260px]"
           >
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/10 to-blue-400/10 flex items-center justify-center flex-shrink-0 overflow-hidden border border-primary/10">
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 shadow-md">
                 <Image
                   src="/images/nex.png"
                   alt="NEX"
-                  width={32}
-                  height={32}
-                  className="w-7 h-7 object-contain"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div>
@@ -101,16 +101,16 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+PC9zdmc+')] opacity-50" />
                 <div className="relative">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/20">
-                        <Image
-                          src="/images/nex.png"
-                          alt="NEX"
-                          width={36}
-                          height={36}
-                          className="w-8 h-8 object-contain"
-                        />
-                      </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white/30 shadow-lg flex-shrink-0">
+                      <Image
+                        src="/images/nex.png"
+                        alt="NEX"
+                        width={44}
+                        height={44}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                       <div>
                         <h3 className="font-semibold text-sm">NEX</h3>
                         <p className="text-xs text-white/70">
@@ -172,18 +172,20 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.93 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`${sizeMap[size]} rounded-2xl bg-white dark:bg-dark-card shadow-lg shadow-primary/20 border border-primary/10 dark:border-primary/5 flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:border-primary/20 overflow-hidden`}
+        className={`${sizeMap[size]} rounded-full shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 overflow-hidden`}
         aria-label="Abrir chat con NEX"
       >
         {isOpen ? (
-          <X className="w-5 h-5 text-gray-500" />
+          <div className="w-full h-full bg-primary rounded-full flex items-center justify-center">
+            <X className="w-5 h-5 text-white" />
+          </div>
         ) : (
           <Image
             src="/images/nex.png"
             alt="NEX"
-            width={40}
-            height={40}
-            className="w-9 h-9 object-contain"
+            width={64}
+            height={64}
+            className="w-full h-full object-cover"
           />
         )}
       </motion.button>
@@ -196,13 +198,13 @@ export function NexBanner() {
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-blue-600 to-indigo-800 p-6 md:p-8 text-white group">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjA4Ii8+PC9zdmc+')] opacity-50" />
       <div className="relative flex flex-col sm:flex-row items-center gap-5">
-        <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0 overflow-hidden border border-white/20 group-hover:scale-105 transition-transform duration-500">
+        <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg shadow-primary/30 flex-shrink-0 group-hover:scale-105 transition-transform duration-500 border-2 border-white/30">
           <Image
             src="/images/nex.png"
             alt="NEX"
-            width={64}
-            height={64}
-            className="w-14 h-14 object-contain"
+            width={80}
+            height={80}
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="text-center sm:text-left">
@@ -229,14 +231,14 @@ export function NexBanner() {
 
 export function NexMini({ message }: { message?: string }) {
   return (
-    <div className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-full px-3 py-1.5 border border-gray-100 dark:border-gray-700">
-      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+    <div className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <div className="w-6 h-6 rounded-full overflow-hidden shadow-sm">
         <Image
           src="/images/nex.png"
           alt="NEX"
-          width={16}
-          height={16}
-          className="w-3.5 h-3.5 object-contain"
+          width={24}
+          height={24}
+          className="w-full h-full object-cover"
         />
       </div>
       <span className="text-xs font-medium">
