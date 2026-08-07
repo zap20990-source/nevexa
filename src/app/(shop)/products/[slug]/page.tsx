@@ -20,6 +20,7 @@ import {
 import { useCartStore, useFavoritesStore } from "@/store";
 import { WhatsAppButton } from "@/components/shop/WhatsAppButton";
 import { NexBanner } from "@/components/nex/Nex";
+import Product3DViewer from "@/components/shop/Product3DViewer";
 import toast from "react-hot-toast";
 
 const product = {
@@ -36,6 +37,7 @@ const product = {
   sales: 1234,
   brand: "AudioTech",
   category: "Tecnología",
+  has3D: true,
   images: ["🎧", "🎵", "🎼", "🎤"],
   variants: [
     { id: "v1", name: "Color", value: "Negro", stock: 20, price: null },
@@ -68,6 +70,7 @@ export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0].id);
+  const [viewMode, setViewMode] = useState<"gallery" | "3d">(product.has3D ? "3d" : "gallery");
   const addItem = useCartStore((s) => s.addItem);
   const { isFavorite, toggle } = useFavoritesStore();
   const fav = isFavorite(product.id);
@@ -102,44 +105,75 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-gray-50/50 dark:bg-dark">
       <div className="container-page py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Gallery */}
+          {/* Gallery / 3D Viewer */}
           <div>
-            <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px] relative">
-              {discount > 0 && (
-                <span className="absolute top-4 left-4 bg-danger text-white text-sm font-bold px-3 py-1 rounded-full">
-                  -{discount}%
-                </span>
-              )}
-              <button
-                onClick={() => toggle(product.id)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 dark:bg-dark-card/80 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform"
-              >
-                <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
-              </button>
-              <motion.span
-                key={selectedImage}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                {product.images[selectedImage]}
-              </motion.span>
-            </div>
-            <div className="flex gap-2 mt-4">
-              {product.images.map((img, i) => (
+            {product.has3D && (
+              <div className="flex gap-1 mb-3">
                 <button
-                  key={i}
-                  onClick={() => setSelectedImage(i)}
-                  className={`w-16 h-16 rounded-xl border-2 transition-all bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-2xl ${
-                    selectedImage === i
-                      ? "border-primary"
-                      : "border-transparent hover:border-gray-300"
+                  onClick={() => setViewMode("gallery")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    viewMode === "gallery"
+                      ? "bg-primary text-white"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-500"
                   }`}
                 >
-                  {img}
+                  Galería
                 </button>
-              ))}
-            </div>
+                <button
+                  onClick={() => setViewMode("3d")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 ${
+                    viewMode === "3d"
+                      ? "bg-primary text-white"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-500"
+                  }`}
+                >
+                  Vista 3D
+                </button>
+              </div>
+            )}
+
+            {viewMode === "3d" && product.has3D ? (
+              <Product3DViewer type="figure" />
+            ) : (
+              <>
+                <div className="card overflow-hidden aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-[120px] relative">
+                  {discount > 0 && (
+                    <span className="absolute top-4 left-4 bg-danger text-white text-sm font-bold px-3 py-1 rounded-full">
+                      -{discount}%
+                    </span>
+                  )}
+                  <button
+                    onClick={() => toggle(product.id)}
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 dark:bg-dark-card/80 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform"
+                  >
+                    <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
+                  </button>
+                  <motion.span
+                    key={selectedImage}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                  >
+                    {product.images[selectedImage]}
+                  </motion.span>
+                </div>
+                <div className="flex gap-2 mt-4">
+                  {product.images.map((img, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedImage(i)}
+                      className={`w-16 h-16 rounded-xl border-2 transition-all bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center text-2xl ${
+                        selectedImage === i
+                          ? "border-primary"
+                          : "border-transparent hover:border-gray-300"
+                      }`}
+                    >
+                      {img}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Info */}
