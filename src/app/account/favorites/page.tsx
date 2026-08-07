@@ -3,41 +3,16 @@
 import Link from "next/link";
 import { Heart, Star } from "lucide-react";
 import { useFavorites } from "@/hooks/useFavorites";
-
-const allProducts: Record<string, any> = {
-  "1": { name: "Audífonos Pro", price: 299900, comparePrice: 499900, image: "🎧", rating: 4.8 },
-  "2": { name: "Teclado Mecánico RGB", price: 189900, comparePrice: 299900, image: "⌨️", rating: 4.7 },
-  "3": { name: "Mouse Gaming", price: 149900, image: "🖱️", rating: 4.9 },
-  "4": { name: "Monitor 27\" 4K", price: 1249900, comparePrice: 1599900, image: "🖥️", rating: 4.6 },
-  "5": { name: "Silla Ergonómica", price: 899900, image: "💺", rating: 4.5 },
-  "6": { name: "Impresora 3D Pro", price: 1899900, comparePrice: 2499900, image: "🖨️", rating: 4.8 },
-  "7": { name: "Cámara Web 4K", price: 349900, comparePrice: 449900, image: "📸", rating: 4.4 },
-  "8": { name: "Hub USB-C", price: 89900, image: "🔌", rating: 4.3 },
-  "9": { name: "Lámpara LED Escritorio", price: 79900, comparePrice: 129900, image: "💡", rating: 4.2 },
-  "10": { name: "Mochila Antirrobo", price: 159900, image: "🎒", rating: 4.6 },
-  "11": { name: "Cargador Inalámbrico", price: 49900, comparePrice: 79900, image: "🔋", rating: 4.1 },
-  "12": { name: "Auriculares Bluetooth", price: 159900, comparePrice: 249900, image: "🎵", rating: 4.7 },
-  "13": { name: "Figura 3D Dragón", price: 49900, image: "🐉", rating: 4.9 },
-  "14": { name: "Portalápices Geométrico", price: 29900, comparePrice: 39900, image: "🖊️", rating: 4.6 },
-  "15": { name: "Soporte para Celular", price: 19900, image: "📱", rating: 4.7 },
-  "16": { name: "Maceta Geométrica", price: 34900, comparePrice: 49900, image: "🪴", rating: 4.5 },
-  "17": { name: "Comedero para Mascotas", price: 59900, image: "🐕", rating: 4.4 },
-  "18": { name: "Juguete Interactivo", price: 29900, comparePrice: 39900, image: "🎾", rating: 4.3 },
-  "19": { name: "Camiseta Premium", price: 89900, image: "👕", rating: 4.5 },
-  "20": { name: "Chaqueta Deportiva", price: 189900, comparePrice: 249900, image: "🧥", rating: 4.6 },
-  "21": { name: "Taladro Inalámbrico", price: 249900, comparePrice: 349900, image: "🔧", rating: 4.7 },
-  "22": { name: "Juego de Destornilladores", price: 59900, image: "🪛", rating: 4.4 },
-  "23": { name: "Cojín Decorativo", price: 39900, image: "🛋️", rating: 4.2 },
-  "24": { name: "Set de Velas Aromáticas", price: 49900, comparePrice: 69900, image: "🕯️", rating: 4.5 },
-};
+import { productsDB } from "@/lib/products";
 
 export default function FavoritesPage() {
   const { items, toggle } = useFavorites();
 
   const favoriteProducts = items
     .map((id) => {
-      const product = allProducts[id];
-      return product ? { id, ...product } : null;
+      const product = productsDB[id];
+      if (!product) return null;
+      return { ...product, image: product.images[0] };
     })
     .filter(Boolean);
 

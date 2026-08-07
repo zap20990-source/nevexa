@@ -11,21 +11,7 @@ import {
   List,
   ChevronDown,
 } from "lucide-react";
-
-const productData = [
-  { id: "1", name: "Audífonos Pro", category: "Tecnología", brand: "AudioTech", price: 299900, comparePrice: 499900, rating: 4.8, sales: 1234, image: "🎧", stock: 50, isNew: true },
-  { id: "2", name: "Teclado Mecánico RGB", category: "Gaming", brand: "KeyPro", price: 189900, comparePrice: 299900, rating: 4.7, sales: 856, image: "⌨️", stock: 30, isNew: false },
-  { id: "3", name: "Mouse Gaming", category: "Gaming", brand: "GameMax", price: 149900, comparePrice: null, rating: 4.9, sales: 2341, image: "🖱️", stock: 100, isNew: true },
-  { id: "4", name: "Monitor 27\" 4K", category: "Tecnología", brand: "ViewPro", price: 1249900, comparePrice: 1599900, rating: 4.6, sales: 432, image: "🖥️", stock: 15, isNew: false },
-  { id: "5", name: "Silla Ergonómica", category: "Oficina", brand: "ErgoPlus", price: 899900, comparePrice: null, rating: 4.5, sales: 678, image: "💺", stock: 20, isNew: true },
-  { id: "6", name: "Impresora 3D Pro", category: "Tecnología", brand: "PrintMax", price: 1899900, comparePrice: 2499900, rating: 4.8, sales: 234, image: "🖨️", stock: 8, isNew: true },
-  { id: "7", name: "Cámara Web 4K", category: "Tecnología", brand: "ViewPro", price: 349900, comparePrice: 449900, rating: 4.4, sales: 987, image: "📸", stock: 45, isNew: false },
-  { id: "8", name: "Hub USB-C", category: "Accesorios", brand: "TechLink", price: 89900, comparePrice: null, rating: 4.3, sales: 1543, image: "🔌", stock: 200, isNew: false },
-  { id: "9", name: "Lámpara LED Escritorio", category: "Oficina", brand: "LightPro", price: 79900, comparePrice: 129900, rating: 4.2, sales: 321, image: "💡", stock: 60, isNew: true },
-  { id: "10", name: "Mochila Antirrobo", category: "Accesorios", brand: "SafeBag", price: 159900, comparePrice: null, rating: 4.6, sales: 567, image: "🎒", stock: 35, isNew: false },
-  { id: "11", name: "Cargador Inalámbrico", category: "Accesorios", brand: "TechLink", price: 49900, comparePrice: 79900, rating: 4.1, sales: 2109, image: "🔋", stock: 150, isNew: false },
-  { id: "12", name: "Auriculares Bluetooth", category: "Tecnología", brand: "AudioTech", price: 159900, comparePrice: 249900, rating: 4.7, sales: 1890, image: "🎵", stock: 75, isNew: true },
-];
+import { productsList, getProductSummary } from "@/lib/products";
 
 const categories = ["Todas", "Tecnología", "Gaming", "Oficina", "Accesorios", "Hogar", "Mascotas", "Ropa", "Herramientas"];
 const sortOptions = ["Más populares", "Más nuevos", "Precio: menor a mayor", "Precio: mayor a menor", "Más vendidos", "Mejor valorados"];
@@ -38,10 +24,12 @@ export default function ProductsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const router = useRouter();
 
-  const filtered = productData
-    .filter((p) => selectedCategory === "Todas" || p.category === selectedCategory)
-    .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
-    .sort((a, b) => {
+  const allProducts = productsList.map(p => getProductSummary(p.id)!).filter(Boolean);
+
+  const filtered = allProducts
+    .filter((p: any) => selectedCategory === "Todas" || p.category === selectedCategory)
+    .filter((p: any) => p.name.toLowerCase().includes(search.toLowerCase()))
+    .sort((a: any, b: any) => {
       switch (sortBy) {
         case "Precio: menor a mayor": return a.price - b.price;
         case "Precio: mayor a menor": return b.price - a.price;

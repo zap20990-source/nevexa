@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
@@ -11,424 +11,32 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { useState } from "react";
-
-const allProducts = [
-  {
-    id: "1",
-    name: "Audífonos Pro",
-    category: "tecnologia",
-    brand: "AudioTech",
-    price: 299900,
-    comparePrice: 499900,
-    rating: 4.8,
-    sales: 1234,
-    image: "🎧",
-    stock: 50,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "2",
-    name: "Teclado Mecánico RGB",
-    category: "gaming",
-    brand: "KeyPro",
-    price: 189900,
-    comparePrice: 299900,
-    rating: 4.7,
-    sales: 856,
-    image: "⌨️",
-    stock: 30,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "3",
-    name: "Mouse Gaming",
-    category: "gaming",
-    brand: "GameMax",
-    price: 149900,
-    comparePrice: null,
-    rating: 4.9,
-    sales: 2341,
-    image: "🖱️",
-    stock: 100,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "4",
-    name: "Monitor 27\" 4K",
-    category: "tecnologia",
-    brand: "ViewPro",
-    price: 1249900,
-    comparePrice: 1599900,
-    rating: 4.6,
-    sales: 432,
-    image: "🖥️",
-    stock: 15,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "5",
-    name: "Silla Ergonómica",
-    category: "oficina",
-    brand: "ErgoPlus",
-    price: 899900,
-    comparePrice: null,
-    rating: 4.5,
-    sales: 678,
-    image: "💺",
-    stock: 20,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "6",
-    name: "Impresora 3D Pro",
-    category: "impresiones-3d",
-    brand: "PrintMax",
-    price: 1899900,
-    comparePrice: 2499900,
-    rating: 4.8,
-    sales: 234,
-    image: "🖨️",
-    stock: 8,
-    isNew: true,
-    is3D: true,
-  },
-  {
-    id: "7",
-    name: "Cámara Web 4K",
-    category: "tecnologia",
-    brand: "ViewPro",
-    price: 349900,
-    comparePrice: 449900,
-    rating: 4.4,
-    sales: 987,
-    image: "📸",
-    stock: 45,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "8",
-    name: "Hub USB-C",
-    category: "accesorios",
-    brand: "TechLink",
-    price: 89900,
-    comparePrice: null,
-    rating: 4.3,
-    sales: 1543,
-    image: "🔌",
-    stock: 200,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "9",
-    name: "Lámpara LED Escritorio",
-    category: "oficina",
-    brand: "LightPro",
-    price: 79900,
-    comparePrice: 129900,
-    rating: 4.2,
-    sales: 321,
-    image: "💡",
-    stock: 60,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "10",
-    name: "Mochila Antirrobo",
-    category: "accesorios",
-    brand: "SafeBag",
-    price: 159900,
-    comparePrice: null,
-    rating: 4.6,
-    sales: 567,
-    image: "🎒",
-    stock: 35,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "11",
-    name: "Cargador Inalámbrico",
-    category: "accesorios",
-    brand: "TechLink",
-    price: 49900,
-    comparePrice: 79900,
-    rating: 4.1,
-    sales: 2109,
-    image: "🔋",
-    stock: 150,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "12",
-    name: "Auriculares Bluetooth",
-    category: "tecnologia",
-    brand: "AudioTech",
-    price: 159900,
-    comparePrice: 249900,
-    rating: 4.7,
-    sales: 1890,
-    image: "🎵",
-    stock: 75,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "13",
-    name: "Figura 3D Dragón",
-    category: "impresiones-3d",
-    brand: "PrintMax",
-    price: 49900,
-    comparePrice: null,
-    rating: 4.9,
-    sales: 567,
-    image: "🐉",
-    stock: 25,
-    isNew: true,
-    is3D: true,
-  },
-  {
-    id: "14",
-    name: "Portalápices Geométrico",
-    category: "impresiones-3d",
-    brand: "PrintMax",
-    price: 29900,
-    comparePrice: 39900,
-    rating: 4.6,
-    sales: 432,
-    image: "🖊️",
-    stock: 50,
-    isNew: true,
-    is3D: true,
-  },
-  {
-    id: "15",
-    name: "Soporte para Celular",
-    category: "impresiones-3d",
-    brand: "PrintMax",
-    price: 19900,
-    comparePrice: null,
-    rating: 4.7,
-    sales: 892,
-    image: "📱",
-    stock: 100,
-    isNew: false,
-    is3D: true,
-  },
-  {
-    id: "16",
-    name: "Maceta Geométrica",
-    category: "impresiones-3d",
-    brand: "PrintMax",
-    price: 34900,
-    comparePrice: 49900,
-    rating: 4.5,
-    sales: 321,
-    image: "🪴",
-    stock: 40,
-    isNew: true,
-    is3D: true,
-  },
-  {
-    id: "17",
-    name: "Comedero para Mascotas",
-    category: "mascotas",
-    brand: "PetPro",
-    price: 59900,
-    comparePrice: null,
-    rating: 4.4,
-    sales: 654,
-    image: "🐕",
-    stock: 45,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "18",
-    name: "Juguete Interactivo",
-    category: "mascotas",
-    brand: "PetPro",
-    price: 29900,
-    comparePrice: 39900,
-    rating: 4.3,
-    sales: 1209,
-    image: "🎾",
-    stock: 80,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "19",
-    name: "Camiseta Premium",
-    category: "ropa",
-    brand: "StyleMax",
-    price: 89900,
-    comparePrice: null,
-    rating: 4.5,
-    sales: 2100,
-    image: "👕",
-    stock: 200,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "20",
-    name: "Chaqueta Deportiva",
-    category: "ropa",
-    brand: "StyleMax",
-    price: 189900,
-    comparePrice: 249900,
-    rating: 4.6,
-    sales: 876,
-    image: "🧥",
-    stock: 60,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "21",
-    name: "Taladro Inalámbrico",
-    category: "herramientas",
-    brand: "PowerTool",
-    price: 249900,
-    comparePrice: 349900,
-    rating: 4.7,
-    sales: 543,
-    image: "🔧",
-    stock: 35,
-    isNew: true,
-    is3D: false,
-  },
-  {
-    id: "22",
-    name: "Juego de Destornilladores",
-    category: "herramientas",
-    brand: "PowerTool",
-    price: 59900,
-    comparePrice: null,
-    rating: 4.4,
-    sales: 3210,
-    image: "🪛",
-    stock: 150,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "23",
-    name: "Cojín Decorativo",
-    category: "hogar",
-    brand: "HomeStyle",
-    price: 39900,
-    comparePrice: null,
-    rating: 4.2,
-    sales: 4567,
-    image: "🛋️",
-    stock: 300,
-    isNew: false,
-    is3D: false,
-  },
-  {
-    id: "24",
-    name: "Set de Velas Aromáticas",
-    category: "hogar",
-    brand: "HomeStyle",
-    price: 49900,
-    comparePrice: 69900,
-    rating: 4.5,
-    sales: 2341,
-    image: "🕯️",
-    stock: 120,
-    isNew: true,
-    is3D: false,
-  },
-];
-
-const categoryInfo: Record<
-  string,
-  { name: string; icon: string; description: string }
-> = {
-  tecnologia: {
-    name: "Tecnología",
-    icon: "💻",
-    description:
-      "Lo último en computadores, tablets, accesorios y gadgets tecnológicos.",
-  },
-  gaming: {
-    name: "Gaming",
-    icon: "🎮",
-    description:
-      "Consolas, periféricos, sillas gamer y todo para el mejor setup.",
-  },
-  hogar: {
-    name: "Hogar",
-    icon: "🏠",
-    description:
-      "Decoración, muebles, iluminación y todo para tu espacio perfecto.",
-  },
-  oficina: {
-    name: "Oficina",
-    icon: "🖨️",
-    description:
-      "Escritorios, sillas ergonómicas, papelería y equipos de oficina.",
-  },
-  accesorios: {
-    name: "Accesorios",
-    icon: "⌚",
-    description:
-      "Relojes, bolsos, lentes, cargadores y accesorios esenciales.",
-  },
-  mascotas: {
-    name: "Mascotas",
-    icon: "🐾",
-    description:
-      "Alimentos, juguetes, accesorios y todo para consentir a tu mascota.",
-  },
-  ropa: {
-    name: "Ropa",
-    icon: "👕",
-    description:
-      "Camisetas, chaquetas, zapatos y moda para todas las ocasiones.",
-  },
-  herramientas: {
-    name: "Herramientas",
-    icon: "🔧",
-    description:
-      "Herramientas eléctricas, manuales, jardinería y más.",
-  },
-  "impresiones-3d": {
-    name: "Impresiones 3D",
-    icon: "🖨️",
-    description:
-      "Figuras, piezas personalizadas, decoración y productos impresos en 3D con la más alta calidad.",
-  },
-};
+import { productsList, getProductSummary, categoryInfo } from "@/lib/products";
 
 export default function CategoryPage() {
   const { slug } = useParams();
   const categorySlug = (slug as string) || "";
-  const info = categoryInfo[categorySlug] || {
+  const reverseCategoryMap = Object.fromEntries(
+    Object.entries(categoryInfo).map(([slug, info]) => [info.name, slug])
+  );
+  const info = categoryInfo[categorySlug as keyof typeof categoryInfo] || {
     name: "Categoría",
     icon: "📦",
     description: "Explora nuestros productos.",
   };
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  const products = allProducts.filter((p) => p.category === categorySlug);
+  const products = productsList
+    .filter((p) => reverseCategoryMap[p.category] === categorySlug)
+    .map((p) => getProductSummary(p.id))
+    .map((p) => p!);
   const is3DCategory = categorySlug === "impresiones-3d";
 
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-dark">
       <div className="container-page py-8">
         <Link href="/categories" className="btn-ghost gap-2 mb-6 inline-flex">
-          <ArrowLeft className="w-4 h-4" /> Todas las categorías
+          <ArrowLeft className="w-4 h-4" /> Todas las categorÃ­as
         </Link>
 
         <div className="mb-8">
@@ -457,8 +65,8 @@ export default function CategoryPage() {
           </p>
           <div className="flex items-center gap-2">
             <select className="input-field w-auto text-sm py-2 cursor-pointer">
-              <option>Más populares</option>
-              <option>Más nuevos</option>
+              <option>MÃ¡s populares</option>
+              <option>MÃ¡s nuevos</option>
               <option>Precio: menor a mayor</option>
               <option>Precio: mayor a menor</option>
             </select>
@@ -491,10 +99,10 @@ export default function CategoryPage() {
           <div className="card p-12 text-center">
             <span className="text-6xl block mb-4">{info.icon}</span>
             <h3 className="text-xl font-bold text-dark dark:text-white mb-2">
-              Sin productos aún
+              Sin productos aÃºn
             </h3>
             <p className="text-gray-500 dark:text-gray-400 mb-4">
-              Pronto tendremos productos en esta categoría.
+              Pronto tendremos productos en esta categorÃ­a.
             </p>
             <Link href="/products" className="btn-primary">
               Ver todos los productos

@@ -1,5 +1,4 @@
-// @ts-nocheck
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -24,256 +23,14 @@ import { WhatsAppButton } from "@/components/shop/WhatsAppButton";
 import { NexBanner } from "@/components/nex/Nex";
 import Product3DViewer from "@/components/shop/Product3DViewer";
 import toast from "react-hot-toast";
+import { getProduct, getProductSummary } from "@/lib/products";
 
-const productsData: Record<string, any> = {
-  "1": {
-    id: "1",
-    name: "Audífonos Pro",
-    description:
-      "Experimenta un sonido envolvente con los nuevos Audífonos Pro. Diseñados con tecnología de cancelación de ruido activa, drivers de neodimio de 40mm y almohadillas de memory foam para máxima comodidad durante horas de uso.\n\nPerfectos para gaming, producción musical o simplemente disfrutar de tu música favorita con una calidad de audio excepcional.",
-    price: 299900,
-    comparePrice: 499900,
-    sku: "AUD-PRO-001",
-    stock: 50,
-    rating: 4.8,
-    reviewCount: 234,
-    sales: 1234,
-    brand: "AudioTech",
-    category: "Tecnología",
-    has3D: false,
-    modelUrl: undefined,
-    images: ["🎧", "🎵", "🎼", "🎤"],
-    variants: [
-      { id: "v1", name: "Color", value: "Negro", stock: 20, price: null },
-      { id: "v2", name: "Color", value: "Blanco", stock: 15, price: null },
-      { id: "v3", name: "Color", value: "Azul", stock: 10, price: 29900 },
-    ],
-    features: [
-      "Cancelación de ruido activa",
-      "Bluetooth 5.3",
-      "40 horas de batería",
-      "Carga rápida USB-C",
-      "Almohadillas memory foam",
-      "Micrófono incorporado",
-    ],
-    reviews: [
-      { id: "r1", name: "Carlos M.", rating: 5, title: "¡Increíble calidad!", comment: "Los mejores audífonos que he tenido.", date: "2024-12-15" },
-      { id: "r2", name: "Ana G.", rating: 5, title: "Perfectos para gaming", comment: "La calidad del sonido es impresionante.", date: "2024-12-10" },
-      { id: "r3", name: "Pedro L.", rating: 4, title: "Muy buenos", comment: "Excelente calidad. El estuche podría ser más compacto.", date: "2024-11-28" },
-    ],
-    relatedProducts: [
-      { id: "3", name: "Mouse Gaming", price: 149900, image: "🖱️", rating: 4.9 },
-      { id: "2", name: "Teclado Mecánico RGB", price: 189900, image: "⌨️", rating: 4.7 },
-      { id: "7", name: "Cámara Web 4K", price: 349900, image: "📸", rating: 4.4 },
-      { id: "12", name: "Auriculares Bluetooth", price: 159900, image: "🎵", rating: 4.7 },
-    ],
-  },
-  "6": {
-    id: "6",
-    name: "Impresora 3D Pro",
-    description:
-      "Impresora 3D de alta precisión ideal para creadores, diseñadores y entusiastas. Tecnología FDM con volumen de impresión de 220x220x250mm, pantalla táctil a color y nivelación automática.\n\nCompatible con PLA, ABS, PETG y TPU. Perfecta para prototipado rápido, piezas personalizadas y proyectos educativos.",
-    price: 1899900,
-    comparePrice: 2499900,
-    sku: "3DP-PRO-001",
-    stock: 8,
-    rating: 4.8,
-    reviewCount: 56,
-    sales: 234,
-    brand: "PrintMax",
-    category: "Impresiones 3D",
-    has3D: true,
-    modelUrl: "/models/helmet.glb",
-    images: ["🖨️", "⚙️", "🎯", "🔩"],
-    variants: [
-      { id: "v6a", name: "Color", value: "Negro", stock: 5, price: null },
-      { id: "v6b", name: "Color", value: "Gris", stock: 3, price: null },
-    ],
-    features: [
-      "Volumen de impresión 220x220x250mm",
-      "Pantalla táctil a color",
-      "Nivelación automática",
-      "Compatible PLA, ABS, PETG, TPU",
-      "Reanudación tras corte de luz",
-      "Sensor de filamento",
-    ],
-    reviews: [
-      { id: "r4", name: "Diego R.", rating: 5, title: "Excelente impresora", comment: "Fácil de armar, excelente calidad de impresión. La uso para mis proyectos de la universidad.", date: "2024-12-05" },
-      { id: "r5", name: "Sofía M.", rating: 4, title: "Muy buena relación calidad-precio", comment: "Buena impresora para empezar. La nivelación automática es un plus enorme.", date: "2024-11-20" },
-    ],
-    relatedProducts: [
-      { id: "13", name: "Figura 3D Dragón", price: 49900, image: "🐉", rating: 4.9 },
-      { id: "14", name: "Portalápices Geométrico", price: 29900, image: "🖊️", rating: 4.6 },
-      { id: "15", name: "Soporte para Celular", price: 19900, image: "📱", rating: 4.7 },
-      { id: "16", name: "Maceta Geométrica", price: 34900, image: "🪴", rating: 4.5 },
-    ],
-  },
-  "13": {
-    id: "13",
-    name: "Figura 3D Dragón",
-    description:
-      "Impresionante figura de dragón impresa en 3D con filamento PLA de alta calidad. Diseño detallado con escamas, alas articuladas y postura dinámica. Perfecta para coleccionistas, decoración de escritorio o regalo único.\n\nDisponible en varios colores. Cada pieza es revisada a mano para garantizar la mejor calidad.",
-    price: 49900,
-    comparePrice: null,
-    sku: "3DP-FIG-DRAGON",
-    stock: 25,
-    rating: 4.9,
-    reviewCount: 89,
-    sales: 567,
-    brand: "PrintMax",
-    category: "Impresiones 3D",
-    has3D: true,
-    modelUrl: "/models/knight.stl",
-    images: ["🐉", "✨", "🎨", "📐"],
-    variants: [
-      { id: "v13a", name: "Color", value: "Rojo", stock: 10, price: null },
-      { id: "v13b", name: "Color", value: "Verde", stock: 8, price: null },
-      { id: "v13c", name: "Color", value: "Dorado", stock: 7, price: 9900 },
-    ],
-    features: [
-      "Filamento PLA de alta calidad",
-      "Diseño articulado",
-      "Acabado detallado",
-      "Revisado a mano",
-      "Ideal para coleccionistas",
-      "Empaque de regalo incluido",
-    ],
-    reviews: [
-      { id: "r6", name: "Martín L.", rating: 5, title: "Increíble detalle", comment: "El nivel de detalle es asombroso. Mis amigos no pueden creer que sea impreso en 3D.", date: "2024-12-18" },
-      { id: "r7", name: "Valentina C.", rating: 5, title: "Regalo perfecto", comment: "Lo compré para mi novio y le encantó. Las alas se mueven y todo.", date: "2024-12-12" },
-    ],
-    relatedProducts: [
-      { id: "6", name: "Impresora 3D Pro", price: 1899900, image: "🖨️", rating: 4.8 },
-      { id: "14", name: "Portalápices Geométrico", price: 29900, image: "🖊️", rating: 4.6 },
-      { id: "15", name: "Soporte para Celular", price: 19900, image: "📱", rating: 4.7 },
-      { id: "16", name: "Maceta Geométrica", price: 34900, image: "🪴", rating: 4.5 },
-    ],
-  },
-  "14": {
-    id: "14",
-    name: "Portalápices Geométrico",
-    description:
-      "Portalápices con diseño geométrico moderno impreso en 3D. Forma de panal hexagonal que organiza tus bolígrafos, lápices y herramientas de escritorio con estilo. Fabricado en PLA resistente con acabado mate.\n\nPerfecto para tu setup de oficina o estudio. Compacto pero con capacidad para 8-10 bolígrafos.",
-    price: 29900,
-    comparePrice: 39900,
-    sku: "3DP-PORTALAPICES",
-    stock: 50,
-    rating: 4.6,
-    reviewCount: 45,
-    sales: 432,
-    brand: "PrintMax",
-    category: "Impresiones 3D",
-    has3D: true,
-    modelUrl: "/models/helmet.glb",
-    images: ["🖊️", "⬡", "📐", "✨"],
-    variants: [
-      { id: "v14a", name: "Color", value: "Blanco mate", stock: 20, price: null },
-      { id: "v14b", name: "Color", value: "Negro mate", stock: 18, price: null },
-      { id: "v14c", name: "Color", value: "Gris", stock: 12, price: null },
-    ],
-    features: [
-      "Diseño geométrico hexagonal",
-      "PLA resistente",
-      "Acabado mate",
-      "Capacidad 8-10 bolígrafos",
-      "Base antideslizante",
-      "Compacto y elegante",
-    ],
-    reviews: [
-      { id: "r8", name: "Lucía P.", rating: 5, title: "Hermoso diseño", comment: "Queda perfecto en mi escritorio. El diseño es muy moderno.", date: "2024-12-08" },
-    ],
-    relatedProducts: [
-      { id: "6", name: "Impresora 3D Pro", price: 1899900, image: "🖨️", rating: 4.8 },
-      { id: "13", name: "Figura 3D Dragón", price: 49900, image: "🐉", rating: 4.9 },
-      { id: "16", name: "Maceta Geométrica", price: 34900, image: "🪴", rating: 4.5 },
-    ],
-  },
-  "15": {
-    id: "15",
-    name: "Soporte para Celular",
-    description:
-      "Soporte ajustable para celular impreso en 3D. Diseño minimalista y funcional, compatible con cualquier smartphone. Ángulo de visión óptimo para videollamadas, ver contenido o seguir recetas mientras cocinas.\n\nLigero, portátil y plegable. Cabe en cualquier bolsillo o mochila.",
-    price: 19900,
-    comparePrice: null,
-    sku: "3DP-SOPORTE",
-    stock: 100,
-    rating: 4.7,
-    reviewCount: 112,
-    sales: 892,
-    brand: "PrintMax",
-    category: "Impresiones 3D",
-    has3D: true,
-    modelUrl: "/models/helmet.glb",
-    images: ["📱", "🔧", "📐", "✋"],
-    variants: [
-      { id: "v15a", name: "Color", value: "Negro", stock: 50, price: null },
-      { id: "v15b", name: "Color", value: "Blanco", stock: 50, price: null },
-    ],
-    features: [
-      "Compatible con cualquier smartphone",
-      "Ángulo ajustable",
-      "Plegable y portátil",
-      "PLA resistente",
-      "Base antideslizante",
-      "Diseño minimalista",
-    ],
-    reviews: [
-      { id: "r9", name: "Andrés G.", rating: 5, title: "Práctico y bonito", comment: "Lo uso todos los días. Muy práctico y se ve bien en cualquier lugar.", date: "2024-12-22" },
-    ],
-    relatedProducts: [
-      { id: "6", name: "Impresora 3D Pro", price: 1899900, image: "🖨️", rating: 4.8 },
-      { id: "13", name: "Figura 3D Dragón", price: 49900, image: "🐉", rating: 4.9 },
-      { id: "14", name: "Portalápices Geométrico", price: 29900, image: "🖊️", rating: 4.6 },
-    ],
-  },
-  "16": {
-    id: "16",
-    name: "Maceta Geométrica",
-    description:
-      "Maceta con diseño geométrico moderno impresa en 3D. Forma dodecaédrica única que agrega estilo a cualquier espacio. Ideal para suculentas, cactus o plantas pequeñas. Incluye orificio de drenaje y plato base.\n\nFabricada en PLA ecológico. Disponible en varios colores.",
-    price: 34900,
-    comparePrice: 49900,
-    sku: "3DP-MACETA",
-    stock: 40,
-    rating: 4.5,
-    reviewCount: 63,
-    sales: 321,
-    brand: "PrintMax",
-    category: "Impresiones 3D",
-    has3D: true,
-    modelUrl: "/models/helmet.glb",
-    images: ["🪴", "🌿", "💎", "🏠"],
-    variants: [
-      { id: "v16a", name: "Color", value: "Blanco", stock: 15, price: null },
-      { id: "v16b", name: "Color", value: "Negro", stock: 12, price: null },
-      { id: "v16c", name: "Color", value: "Terracota", stock: 13, price: null },
-    ],
-    features: [
-      "Diseño dodecaédrico único",
-      "PLA ecológico",
-      "Orificio de drenaje",
-      "Plato base incluido",
-      "Ideal para suculentas",
-      "Varios colores",
-    ],
-    reviews: [
-      { id: "r10", name: "Camila R.", rating: 5, title: "Hermosa decoración", comment: "Se ve increíble en mi sala. El diseño geométrico es muy elegante.", date: "2024-12-01" },
-      { id: "r11", name: "Felipe N.", rating: 4, title: "Muy bonita", comment: "Excelente calidad de impresión. Le doy 4 porque me gustaría más tamaños.", date: "2024-11-15" },
-    ],
-    relatedProducts: [
-      { id: "6", name: "Impresora 3D Pro", price: 1899900, image: "🖨️", rating: 4.8 },
-      { id: "13", name: "Figura 3D Dragón", price: 49900, image: "🐉", rating: 4.9 },
-      { id: "14", name: "Portalápices Geométrico", price: 29900, image: "🖊️", rating: 4.6 },
-    ],
-  },
-};
-
-const defaultProduct = productsData["1"];
 
 export default function ProductDetailPage() {
   const params = useParams();
   const slug = (params.slug as string) || "";
-  const product = productsData[slug] || defaultProduct;
+  const product = getProduct(slug) || getProduct("1")!;
+  const resolvedRelated = (product.relatedProducts || []).map((id: string) => getProductSummary(id)).filter(Boolean);
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -303,7 +60,7 @@ export default function ProductDetailPage() {
     const variant = product.variants.find((v) => v.id === selectedVariant);
     window.open(
       `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573000000000"}?text=${encodeURIComponent(
-        `¡Hola NEVEXA! 👋\n\nQuiero comprar:\n• ${product.name}${variant ? ` - ${variant.value}` : ""}\nCantidad: ${quantity}\nTotal: $${(product.price * quantity).toLocaleString()}\n\n¡Gracias!`
+        `Â¡Hola NEVEXA! ðŸ‘‹\n\nQuiero comprar:\nâ€¢ ${product.name}${variant ? ` - ${variant.value}` : ""}\nCantidad: ${quantity}\nTotal: $${(product.price * quantity).toLocaleString()}\n\nÂ¡Gracias!`
       )}`,
       "_blank"
     );
@@ -325,7 +82,7 @@ export default function ProductDetailPage() {
                       : "bg-gray-100 dark:bg-gray-800 text-gray-500"
                   }`}
                 >
-                  Galería
+                  GalerÃ­a
                 </button>
                 <button
                   onClick={() => setViewMode("3d")}
@@ -408,7 +165,7 @@ export default function ProductDetailPage() {
                 ))}
               </div>
               <span className="text-sm font-medium text-dark dark:text-white">{product.rating}</span>
-              <span className="text-sm text-gray-400">({product.reviewCount} reseñas)</span>
+              <span className="text-sm text-gray-400">({product.reviewCount} reseÃ±as)</span>
               <span className="text-sm text-gray-400">|</span>
               <span className="text-sm text-gray-400">{product.sales} vendidos</span>
             </div>
@@ -497,9 +254,9 @@ export default function ProductDetailPage() {
             {/* Features */}
             <div className="grid grid-cols-2 gap-3 mb-8">
               {[
-                { icon: Truck, text: "Envío gratis +$200k" },
-                { icon: RotateCcw, text: "Devolución 30 días" },
-                { icon: Shield, text: "Garantía 1 año" },
+                { icon: Truck, text: "EnvÃ­o gratis +$200k" },
+                { icon: RotateCcw, text: "DevoluciÃ³n 30 dÃ­as" },
+                { icon: Shield, text: "GarantÃ­a 1 aÃ±o" },
                 { icon: MessageCircle, text: "Soporte 24/7" },
               ].map((f) => (
                 <div key={f.text} className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
@@ -511,7 +268,7 @@ export default function ProductDetailPage() {
 
             {/* Features list */}
             <div className="card p-5 mb-8">
-              <h3 className="font-semibold text-dark dark:text-white mb-3">Características</h3>
+              <h3 className="font-semibold text-dark dark:text-white mb-3">CaracterÃ­sticas</h3>
               <ul className="grid grid-cols-2 gap-2">
                 {product.features.map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
@@ -529,7 +286,7 @@ export default function ProductDetailPage() {
           <div className="lg:col-span-2">
             <div className="card p-6 mb-6">
               <h2 className="text-xl font-bold font-heading text-dark dark:text-white mb-4">
-                Descripción
+                DescripciÃ³n
               </h2>
               <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 whitespace-pre-line">
                 {product.description}
@@ -538,7 +295,7 @@ export default function ProductDetailPage() {
 
             <div className="card p-6 mb-6">
               <h2 className="text-xl font-bold font-heading text-dark dark:text-white mb-4">
-                Reseñas ({product.reviewCount})
+                ReseÃ±as ({product.reviewCount})
               </h2>
               <div className="space-y-4">
                 {product.reviews.map((review) => (
@@ -581,7 +338,7 @@ export default function ProductDetailPage() {
             <div className="card p-5">
               <h3 className="font-semibold text-dark dark:text-white mb-4">Productos relacionados</h3>
               <div className="space-y-3">
-                {product.relatedProducts.map((rp) => (
+                {resolvedRelated.map((rp: any) => (
                   <a
                     key={rp.id}
                     href={`/products/${rp.id}`}

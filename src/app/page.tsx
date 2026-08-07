@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Star,
 } from "lucide-react";
+import { productsList, categoryInfo } from "@/lib/products";
 
 const slides = [
   {
@@ -73,28 +74,21 @@ export default function HomePage() {
     }
   };
 
-  const featuredProducts = [
-    { id: "1", name: "Audífonos Pro", price: 299900, comparePrice: 499900, image: "🎧", rating: 4.8, sales: 1234 },
-    { id: "2", name: "Teclado Mecánico RGB", price: 189900, comparePrice: 299900, image: "⌨️", rating: 4.7, sales: 856 },
-    { id: "3", name: "Mouse Gaming", price: 149900, comparePrice: null, image: "🖱️", rating: 4.9, sales: 2341 },
-    { id: "4", name: "Monitor 27\" 4K", price: 1249900, comparePrice: 1599900, image: "🖥️", rating: 4.6, sales: 432 },
-    { id: "5", name: "Silla Ergonómica", price: 899900, comparePrice: null, image: "💺", rating: 4.5, sales: 678 },
-    { id: "6", name: "Impresora 3D Pro", price: 1899900, comparePrice: 2499900, image: "🖨️", rating: 4.8, sales: 234 },
-    { id: "7", name: "Cámara Web 4K", price: 349900, comparePrice: 449900, image: "📸", rating: 4.4, sales: 987 },
-    { id: "8", name: "Hub USB-C", price: 89900, comparePrice: null, image: "🔌", rating: 4.3, sales: 1543 },
-  ];
+  const featuredProducts = productsList.slice(0, 8).map(p => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    comparePrice: p.comparePrice,
+    image: p.images[0],
+    rating: p.rating,
+    sales: p.sales,
+  }));
 
-  const categories = [
-    { name: "Tecnología", slug: "tecnologia", icon: "💻" },
-    { name: "Gaming", slug: "gaming", icon: "🎮" },
-    { name: "Hogar", slug: "hogar", icon: "🏠" },
-    { name: "Oficina", slug: "oficina", icon: "🖨️" },
-    { name: "Mascotas", slug: "mascotas", icon: "🐾" },
-    { name: "Accesorios", slug: "accesorios", icon: "⌚" },
-    { name: "Ropa", slug: "ropa", icon: "👕" },
-    { name: "Herramientas", slug: "herramientas", icon: "🔧" },
-    { name: "Impresiones 3D", slug: "impresiones-3d", icon: "🖨️" },
-  ];
+  const categories = Object.entries(categoryInfo).map(([slug, info]) => ({
+    name: info.name,
+    slug,
+    icon: info.icon,
+  }));
 
   const reviews = [
     { name: "Carlos M.", text: "Excelente servicio y productos de calidad. NEX me ayudó a encontrar justo lo que necesitaba.", rating: 5 },

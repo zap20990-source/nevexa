@@ -71,11 +71,28 @@ export default function CheckoutPage() {
           `¡Gracias!`
       );
       window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, "_blank");
-      clearCart();
-      toast.success("¡Redirigido a WhatsApp!");
-      return;
+    } else {
+      try {
+        await fetch("/api/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            subtotal,
+            shipping,
+            discount: coupon?.discount || 0,
+            total,
+            notes: data.notes || "",
+            paymentMethod: data.paymentMethod,
+            userId: data.email,
+            items: items.map((item) => ({
+              productId: item.id,
+              quantity: item.quantity,
+              price: item.price * item.quantity,
+            })),
+          }),
+        });
+      } catch {}
     }
-    await new Promise((r) => setTimeout(r, 1500));
     clearCart();
     toast.success("¡Pedido realizado con éxito!");
     router.push("/account/orders");
