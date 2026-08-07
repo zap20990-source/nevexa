@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Star,
@@ -68,6 +69,8 @@ const product = {
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
+  const { data: session } = useSession();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0].id);
@@ -81,6 +84,11 @@ export default function ProductDetailPage() {
     : 0;
 
   const handleAddToCart = () => {
+    if (!session) {
+      router.push("/login");
+      toast.error("Inicia sesión para agregar productos al carrito");
+      return;
+    }
     addItem({
       id: product.id,
       name: product.name,

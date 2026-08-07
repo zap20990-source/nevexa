@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
-import bcrypt from "bcryptjs";
+import { createUser } from "@/lib/auth-db";
 import { registerSchema } from "@/lib/validations";
 
 export async function POST(req: Request) {
@@ -17,31 +16,19 @@ export async function POST(req: Request) {
 
     const { name, email, password, phone } = parsed.data;
 
-    const exists = await prisma.user.findUnique({ where: { email } });
-    if (exists) {
+    const user = await createUser({ name, email, password, phone });
+
+    return NextResponse.json(
+      { message: "Cuenta creada exitosamente", user },
+      { status: 201 }
+    );
+  } catch (error: any) {
+    if (error.message === "El email ya está registrado") {
       return NextResponse.json(
         { message: "Este email ya está registrado" },
         { status: 409 }
       );
     }
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        phone,
-      },
-    });
-
-    return NextResponse.json(
-      { message: "Cuenta creada exitosamente", userId: user.id },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error("Register error:", error);
     return NextResponse.json(
       { message: "Error al crear la cuenta" },
       { status: 500 }

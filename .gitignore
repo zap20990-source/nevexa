@@ -5,5 +5,6 @@ node_modules/
 .env*.local
 *.tsbuildinfo
 next-env.d.ts
+data/users.json
 
 .vercel
