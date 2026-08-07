@@ -60,7 +60,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-dark dark:bg-black text-gray-300">
+    <footer className="bg-dark text-gray-300">
       <div className="container-page">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16">
           <div className="col-span-2 md:col-span-1">
