@@ -82,6 +82,7 @@ export default function HomePage() {
     { name: "Accesorios", slug: "accesorios", icon: "⌚" },
     { name: "Ropa", slug: "ropa", icon: "👕" },
     { name: "Herramientas", slug: "herramientas", icon: "🔧" },
+    { name: "Impresiones 3D", slug: "impresiones-3d", icon: "🖨️" },
   ];
 
   const reviews = [

@@ -40,7 +40,7 @@ export default function CategoriesPage() {
               viewport={{ once: true }}
             >
               <Link
-                href={`/search?category=${cat.slug}`}
+                href={`/categories/${cat.slug}`}
                 className="card p-6 group flex items-start gap-5 hover:border-primary/30 cursor-pointer"
               >
                 <span className="text-4xl flex-shrink-0">{cat.icon}</span>
