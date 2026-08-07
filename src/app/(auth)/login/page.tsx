@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import Image from "next/image";
 import { Eye, EyeOff, Mail, Lock, Chrome } from "lucide-react";
 import { loginSchema, type LoginInput } from "@/lib/validations";
 import toast from "react-hot-toast";
@@ -55,9 +56,13 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-              <span className="text-white font-bold">NX</span>
-            </div>
+            <Image
+              src="/images/logo.png"
+              alt="NEVEXA"
+              width={140}
+              height={36}
+              className="h-10 w-auto"
+            />
           </Link>
           <h1 className="text-2xl font-bold font-heading text-dark dark:text-white mb-2">
             Iniciar sesión

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   Instagram,
@@ -64,10 +65,13 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-white font-bold text-sm">NX</span>
-              </div>
-              <span className="text-xl font-bold text-white">NEVEXA</span>
+              <Image
+                src="/images/logo.png"
+                alt="NEVEXA"
+                width={140}
+                height={36}
+                className="h-9 w-auto brightness-0 invert"
+              />
             </Link>
             <p className="text-sm text-gray-400 mb-6">
               Todo lo que buscas, en un solo lugar.

@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="text-center">
-        <span className="text-8xl block mb-6">🤖</span>
+        <Image src="/images/nex.png" alt="NEX" width={100} height={100} className="w-24 h-24 object-contain mx-auto mb-6" />
         <h1 className="text-4xl font-extrabold font-heading text-dark dark:text-white mb-3">
           404
         </h1>

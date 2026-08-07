@@ -1,0 +1,1 @@
+{"type":"web_service","name":"nevexa","ownerId":"tea-d9qivep42hec73ee3e70","repo":"https://github.com/zap20990-source/nevexa","branch":"master","autoDeploy":true,"serviceDetails":{"env":"node","plan":"starter","buildCommand":"npm install && npx prisma generate && npm run build","startCommand":"npm start"}}

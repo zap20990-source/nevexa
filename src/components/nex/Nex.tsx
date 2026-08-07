@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 const messages = [
   "¡Hola! Soy NEX 🤖",
@@ -65,8 +66,8 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
             className="absolute bottom-full mb-4 right-0 bg-white dark:bg-dark-card rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-4 max-w-[240px]"
           >
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-lg">🤖</span>
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <Image src="/images/nex.png" alt="NEX" width={24} height={24} className="w-6 h-6 object-contain" />
               </div>
               <p className="text-sm text-dark dark:text-white">{message}</p>
             </div>
@@ -87,8 +88,8 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
               <div className="p-5 bg-gradient-to-br from-primary to-primary-light text-white">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl">
-                      🤖
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
+                      <Image src="/images/nex.png" alt="NEX" width={32} height={32} className="w-8 h-8 object-contain" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-sm">NEX</h3>
@@ -140,7 +141,7 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
         {isOpen ? (
           <X className="w-5 h-5" />
         ) : (
-          <span className="text-2xl">🤖</span>
+          <Image src="/images/nex.png" alt="NEX" width={36} height={36} className="w-8 h-8 object-contain" />
         )}
       </motion.button>
     </div>
@@ -151,8 +152,8 @@ export function NexBanner() {
   return (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-purple-600 p-8 text-white">
       <div className="flex items-center gap-6">
-        <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center text-4xl flex-shrink-0">
-          🤖
+        <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+          <Image src="/images/nex.png" alt="NEX" width={60} height={60} className="w-14 h-14 object-contain" />
         </div>
         <div>
           <h3 className="text-2xl font-bold font-heading mb-2">
@@ -176,7 +177,7 @@ export function NexBanner() {
 export function NexMini({ message }: { message?: string }) {
   return (
     <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-      <span className="text-base">🤖</span>
+      <Image src="/images/nex.png" alt="NEX" width={18} height={18} className="w-4 h-4 object-contain" />
       <span>{message || "¡Hola! Soy NEX"}</span>
     </div>
   );

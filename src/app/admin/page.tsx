@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -60,9 +61,13 @@ export default function AdminDashboard() {
       <aside className={`${sidebarOpen ? "w-64" : "w-20"} hidden lg:flex flex-col bg-white dark:bg-dark-card border-r border-gray-200 dark:border-gray-800 transition-all duration-300`}>
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
           <Link href="/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white font-bold text-xs">NX</span>
-            </div>
+            <Image
+              src="/images/logo.png"
+              alt="NEVEXA"
+              width={100}
+              height={24}
+              className="h-6 w-auto"
+            />
             {sidebarOpen && <span className="font-bold font-heading text-dark dark:text-white">Admin</span>}
           </Link>
         </div>

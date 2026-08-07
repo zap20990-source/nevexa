@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   Search,
   ArrowRight,
@@ -118,7 +119,7 @@ export default function HomePage() {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-2xl">🤖</span>
+                    <Image src="/images/nex.png" alt="NEX" width={28} height={28} className="w-7 h-7 object-contain" />
                     <span className="text-white/70 text-sm font-medium">
                       NEX te da la bienvenida
                     </span>
