@@ -118,6 +118,16 @@ export default function HomePage() {
         </AnimatePresence>
 
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+        {currentSlide === 2 && (
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgODAwIDYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiIHN0cm9rZS13aWR0aD0iMSI+PHRyYW5zZm9ybSB0cmFuc2xhdGUoNDAwLDgwKSI+PGxpbmUgeDE9Ii00NTAiIHkxPSI0MDAiIHgyPSItMzAwIiB5Mj0iMCIvPjxsaW5lIHgxPSItMzAwIiB5MT0iNDAwIiB4Mj0iLTE1MCIgeTI9IjAiLz48bGluZSB4MT0iLTE1MCIgeTE9IjQwMCIgeDI9IjAiIHkyPSIwIi8+PGxpbmUgeDE9IjAiIHkxPSI0MDAiIHgyPSIxNTAiIHkyPSIwIi8+PGxpbmUgeDE9IjE1MCIgeTE9IjQwMCIgeDI9IjMwMCIgeTI9IjAiLz48bGluZSB4MT0iMzAwIiB5MT0iNDAwIiB4Mj0iNDUwIiB5Mj0iMCIvPjxsaW5lIHgxPSItNDUwIiB5MT0iMzIwIiB4Mj0iNDUwIiB5Mj0iMzIwIi8+PGxpbmUgeDE9Ii00NTAiIHkxPSIyNDAiIHgyPSI0NTAiIHkyPSIyNDAiLz48bGluZSB4MT0iLTQ1MCIgeTE9IjE2MCIgeDI9IjQ1MCIgeTI9IjE2MCIvPjxsaW5lIHgxPSItNDUwIiB5MT0iODAiIHgyPSI0NTAiIHkyPSI4MCIvPjwvdHJhbnNmb3JtPjwvZz48L3N2Zz4=')] opacity-60" />
+          <div className="absolute inset-0 overflow-hidden opacity-[0.04]">
+            <div className="absolute top-1/4 -left-20 w-64 h-64 rounded-full border-2 border-white" />
+            <div className="absolute top-1/3 left-1/3 w-48 h-48 rounded-full border-2 border-white" />
+            <div className="absolute bottom-1/4 right-10 w-56 h-56 rounded-full border-2 border-white" />
+            <div className="absolute top-10 right-1/4 w-32 h-32 border-2 border-white rotate-45" />
+            <div className="absolute bottom-10 left-1/4 w-40 h-40 border-2 border-white rotate-12" />
+          </div>
+        )}
 
         <div className="container-page relative z-10 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
