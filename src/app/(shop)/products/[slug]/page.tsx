@@ -276,7 +276,7 @@ export default function ProductDetailPage() {
   const slug = (params.slug as string) || "";
   const product = productsData[slug] || defaultProduct;
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status: authStatus } = useSession();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0].id);
@@ -353,7 +353,7 @@ export default function ProductDetailPage() {
                   -{discount}%
                 </span>
               )}
-              {session && (
+              {authStatus === "authenticated" && (
                 <button
                   onClick={() => toggle(slug || product.id)}
                   className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
