@@ -391,6 +391,7 @@ export default function ProductDetailPage() {
                 </>
               )}
             </div>
+          </div>
 
           {/* Info */}
           <div>
