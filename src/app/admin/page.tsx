@@ -60,15 +60,17 @@ export default function AdminDashboard() {
       {/* Sidebar */}
       <aside className={`${sidebarOpen ? "w-64" : "w-20"} hidden lg:flex flex-col bg-white dark:bg-dark-card border-r border-gray-200 dark:border-gray-800 transition-all duration-300`}>
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
-          <Link href="/admin" className="flex items-center gap-2">
-            <Image
-              src="/images/logo.png"
-              alt="NEVEXA"
-              width={100}
-              height={24}
-              className="h-6 w-auto"
-            />
-            {sidebarOpen && <span className="font-bold font-heading text-dark dark:text-white">Admin</span>}
+          <Link href="/admin" className="flex items-center gap-2.5">
+            <div className="h-7 w-auto flex-shrink-0">
+              <Image
+                src="/images/logo.png"
+                alt="NEVEXA"
+                width={28}
+                height={28}
+                className="h-full w-auto"
+              />
+            </div>
+            {sidebarOpen && <span className="font-bold font-heading text-dark dark:text-white text-sm">NEVEXA</span>}
           </Link>
         </div>
         <nav className="flex-1 p-3 space-y-1">

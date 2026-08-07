@@ -45,15 +45,20 @@ export function Navbar() {
         <div className="container-page">
           <div className="flex items-center justify-between h-[72px]">
             <div className="flex items-center gap-1">
-              <Link href="/" className="flex items-center py-2">
-                <Image
-                  src="/images/logo.png"
-                  alt="NEVEXA"
-                  width={160}
-                  height={44}
-                  className="h-11 w-auto"
-                  priority
-                />
+              <Link href="/" className="flex items-center gap-2.5 py-2 group">
+                <div className="h-11 w-auto flex-shrink-0">
+                  <Image
+                    src="/images/logo.png"
+                    alt="NEVEXA"
+                    width={44}
+                    height={44}
+                    className="h-full w-auto"
+                    priority
+                  />
+                </div>
+                <span className="text-xl font-bold font-heading text-dark dark:text-white group-hover:text-primary transition-colors hidden sm:block">
+                  NEVEXA
+                </span>
               </Link>
             </div>
 

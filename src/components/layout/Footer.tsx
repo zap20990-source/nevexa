@@ -64,14 +64,19 @@ export function Footer() {
       <div className="container-page">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center mb-4 group">
-              <Image
-                src="/images/logo.png"
-                alt="NEVEXA"
-                width={160}
-                height={40}
-                className="h-10 w-auto group-hover:scale-105 transition-transform"
-              />
+            <Link href="/" className="flex items-center gap-2.5 mb-4 group">
+              <div className="h-10 w-auto flex-shrink-0">
+                <Image
+                  src="/images/logo.png"
+                  alt="NEVEXA"
+                  width={40}
+                  height={40}
+                  className="h-full w-auto"
+                />
+              </div>
+              <span className="text-xl font-bold text-white group-hover:text-primary transition-colors">
+                NEVEXA
+              </span>
             </Link>
             <p className="text-sm text-gray-400 mb-6">
               Todo lo que buscas, en un solo lugar.
