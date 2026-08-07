@@ -11,7 +11,7 @@ import {
   ShoppingBag,
   Users,
   Tag,
-  Image,
+  Image as ImageIcon,
   BarChart3,
   ChevronRight,
   TrendingUp,
@@ -41,7 +41,7 @@ const sidebarLinks = [
   { icon: Tag, label: "Categorías", href: "/admin/categories" },
   { icon: ShoppingBag, label: "Pedidos", href: "/admin/orders" },
   { icon: Users, label: "Clientes", href: "/admin/customers" },
-  { icon: Image, label: "Banners", href: "/admin/banners" },
+  { icon: ImageIcon, label: "Banners", href: "/admin/banners" },
   { icon: BarChart3, label: "Estadísticas", href: "/admin/coupons" },
 ];
 

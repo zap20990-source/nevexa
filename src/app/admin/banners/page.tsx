@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Plus, Image, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Plus, Image as ImageIcon, Eye, EyeOff } from "lucide-react";
 
 const banners = [
   { id: "b1", title: "Ofertas de Verano", subtitle: "Hasta 50% off", image: "🏖️", isActive: true, order: 1 },
@@ -38,7 +38,7 @@ export default function AdminBannersPage() {
                     {b.isActive ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                   </button>
                   <button className="btn-ghost p-1.5 text-red-500">
-                    <Image className="w-4 h-4" />
+                    <ImageIcon className="w-4 h-4" />
                   </button>
                 </div>
               </div>
