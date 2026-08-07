@@ -6,13 +6,13 @@ import { X, MessageCircle, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 const messages = [
-  "¡Hola! Soy NEX 🤖",
-  "Encontré una oferta para ti 🎉",
-  "¿Necesitas ayuda?",
-  "Creo que este producto te puede gustar 💙",
-  "Gracias por comprar en NEVEXA 🚀",
+  "¡Hola! Soy NEX, listo para ayudarte.",
+  "Encontré una oferta especial para ti.",
+  "¿Necesitas ayuda con tu compra?",
+  "Creo que este producto te puede gustar.",
+  "Gracias por comprar en NEVEXA.",
   "¡Revisa nuestras nuevas ofertas!",
-  "¿Ya viste lo nuevo? 👀",
+  "¿Ya viste lo que llegó hoy?",
 ];
 
 interface NexProps {
@@ -37,7 +37,7 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
     const initialTimer = setTimeout(() => {
       setShowBubble(true);
       setTimeout(() => setShowBubble(false), 4000);
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearInterval(interval);
@@ -47,9 +47,9 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
 
   const quickActions = [
     { label: "Ver productos", href: "/products", icon: "🛍️" },
-    { label: "Ofertas", href: "/products?discount=true", icon: "🏷️" },
-    { label: "Hablar con un asesor", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573000000000"}?text=${encodeURIComponent("¡Hola! Quiero hablar con un asesor 🚀")}`, icon: "💬" },
-    { label: "Consultar pedido", href: "/account/orders", icon: "📦" },
+    { label: "Ofertas especiales", href: "/products?discount=true", icon: "🏷️" },
+    { label: "Hablar con un asesor", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573000000000"}?text=${encodeURIComponent("¡Hola! Quiero hablar con un asesor.")}`, icon: "💬" },
+    { label: "Consultar mi pedido", href: "/account/orders", icon: "📦" },
   ];
 
   const posClass =
@@ -63,13 +63,25 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="absolute bottom-full mb-4 right-0 bg-white dark:bg-dark-card rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-4 max-w-[240px]"
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="absolute bottom-full mb-5 right-0 bg-white dark:bg-dark-card rounded-2xl shadow-xl shadow-black/10 border border-gray-100 dark:border-gray-700 p-4 max-w-[260px]"
           >
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                <Image src="/images/nex.png" alt="NEX" width={24} height={24} className="w-6 h-6 object-contain" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/10 to-blue-400/10 flex items-center justify-center flex-shrink-0 overflow-hidden border border-primary/10">
+                <Image
+                  src="/images/nex.png"
+                  alt="NEX"
+                  width={32}
+                  height={32}
+                  className="w-7 h-7 object-contain"
+                />
               </div>
-              <p className="text-sm text-dark dark:text-white">{message}</p>
+              <div>
+                <p className="text-xs font-medium text-primary mb-0.5">NEX</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {message}
+                </p>
+              </div>
             </div>
           </motion.div>
         )}
@@ -82,49 +94,74 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ type: "spring", duration: 0.4 }}
-              className="absolute bottom-full mb-4 right-0 w-80 bg-white dark:bg-dark-card rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="absolute bottom-full mb-5 right-0 w-80 sm:w-88 bg-white dark:bg-dark-card rounded-2xl shadow-2xl shadow-black/20 border border-gray-100 dark:border-gray-700 overflow-hidden"
             >
-              <div className="p-5 bg-gradient-to-br from-primary to-primary-light text-white">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
-                      <Image src="/images/nex.png" alt="NEX" width={32} height={32} className="w-8 h-8 object-contain" />
+              <div className="relative p-5 bg-gradient-to-br from-primary via-blue-600 to-indigo-700 text-white">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+PC9zdmc+')] opacity-50" />
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/20">
+                        <Image
+                          src="/images/nex.png"
+                          alt="NEX"
+                          width={36}
+                          height={36}
+                          className="w-8 h-8 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-sm">NEX</h3>
+                        <p className="text-xs text-white/70">
+                          Asistente virtual
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-sm">NEX</h3>
-                      <p className="text-xs text-white/70">Asistente NEVEXA</p>
-                    </div>
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="w-8 h-8 rounded-full bg-black/20 hover:bg-black/30 flex items-center justify-center transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
+                  <p className="text-sm text-white/90 leading-relaxed">
+                    ¡Hola! Soy NEX. ¿En qué puedo ayudarte hoy?
+                  </p>
                 </div>
-                <p className="text-sm text-white/90">
-                  ¡Hola! Soy NEX 🤖 ¿En qué puedo ayudarte?
-                </p>
               </div>
 
-              <div className="p-4 space-y-2">
+              <div className="p-4 space-y-1.5">
                 {quickActions.map((action) => (
                   <a
                     key={action.label}
                     href={action.href}
-                    target={action.href.startsWith("http") ? "_blank" : undefined}
-                    rel={action.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+                    target={
+                      action.href.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      action.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group cursor-pointer"
                     onClick={() => setIsOpen(false)}
                   >
-                    <span className="text-lg">{action.icon}</span>
-                    <span className="text-sm font-medium text-dark dark:text-white group-hover:text-primary transition-colors">
+                    <div className="w-9 h-9 rounded-lg bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                      {action.icon}
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors">
                       {action.label}
                     </span>
-                    <Sparkles className="w-3.5 h-3.5 text-primary ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Sparkles className="w-3.5 h-3.5 text-primary ml-auto opacity-0 group-hover:opacity-100 transition-all" />
                   </a>
                 ))}
+              </div>
+
+              <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30">
+                <p className="text-xs text-gray-400 text-center">
+                  Desarrollado con inteligencia artificial
+                </p>
               </div>
             </motion.div>
           </>
@@ -133,15 +170,21 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
 
       <motion.button
         whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
+        whileTap={{ scale: 0.93 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`${sizeMap[size]} rounded-full bg-gradient-to-br from-primary to-primary-light shadow-lg shadow-primary/30 flex items-center justify-center text-white text-xl transition-shadow hover:shadow-xl hover:shadow-primary/40`}
+        className={`${sizeMap[size]} rounded-2xl bg-white dark:bg-dark-card shadow-lg shadow-primary/20 border border-primary/10 dark:border-primary/5 flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:border-primary/20 overflow-hidden`}
         aria-label="Abrir chat con NEX"
       >
         {isOpen ? (
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5 text-gray-500" />
         ) : (
-          <Image src="/images/nex.png" alt="NEX" width={36} height={36} className="w-8 h-8 object-contain" />
+          <Image
+            src="/images/nex.png"
+            alt="NEX"
+            width={40}
+            height={40}
+            className="w-9 h-9 object-contain"
+          />
         )}
       </motion.button>
     </div>
@@ -150,35 +193,55 @@ export function Nex({ position = "bottom-right", size = "md" }: NexProps) {
 
 export function NexBanner() {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-purple-600 p-8 text-white">
-      <div className="flex items-center gap-6">
-        <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
-          <Image src="/images/nex.png" alt="NEX" width={60} height={60} className="w-14 h-14 object-contain" />
+    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-blue-600 to-indigo-800 p-6 md:p-8 text-white group">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjA4Ii8+PC9zdmc+')] opacity-50" />
+      <div className="relative flex flex-col sm:flex-row items-center gap-5">
+        <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0 overflow-hidden border border-white/20 group-hover:scale-105 transition-transform duration-500">
+          <Image
+            src="/images/nex.png"
+            alt="NEX"
+            width={64}
+            height={64}
+            className="w-14 h-14 object-contain"
+          />
         </div>
-        <div>
-          <h3 className="text-2xl font-bold font-heading mb-2">
-            ¡NEX te ayuda a encontrar lo mejor!
+        <div className="text-center sm:text-left">
+          <h3 className="text-xl md:text-2xl font-bold font-heading mb-2">
+            ¡NEX te ayuda a encontrar lo que buscas!
           </h3>
-          <p className="text-white/80 mb-4">
-            Pregúntame lo que necesites. Estoy aquí para ayudarte a encontrar
-            el producto perfecto.
+          <p className="text-white/80 text-sm mb-4 max-w-md">
+            Pregúntame lo que necesites. Soy tu asistente personal para
+            encontrar el producto perfecto al mejor precio.
           </p>
-          <a href="/products" className="inline-flex items-center gap-2 bg-white text-primary font-semibold px-5 py-2.5 rounded-lg hover:bg-white/90 transition-colors">
+          <a
+            href="/products"
+            className="inline-flex items-center gap-2 bg-white text-primary font-semibold px-5 py-2.5 rounded-xl hover:bg-white/95 hover:shadow-lg transition-all text-sm"
+          >
             Explorar productos <Sparkles className="w-4 h-4" />
           </a>
         </div>
       </div>
-      <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
-      <div className="absolute right-10 top-0 w-20 h-20 bg-pink-400/20 rounded-full blur-xl" />
+      <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute right-16 -top-4 w-20 h-20 bg-violet-400/10 rounded-full blur-2xl" />
     </div>
   );
 }
 
 export function NexMini({ message }: { message?: string }) {
   return (
-    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-      <Image src="/images/nex.png" alt="NEX" width={18} height={18} className="w-4 h-4 object-contain" />
-      <span>{message || "¡Hola! Soy NEX"}</span>
+    <div className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-full px-3 py-1.5 border border-gray-100 dark:border-gray-700">
+      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/nex.png"
+          alt="NEX"
+          width={16}
+          height={16}
+          className="w-3.5 h-3.5 object-contain"
+        />
+      </div>
+      <span className="text-xs font-medium">
+        {message || "¡Hola! Soy NEX"}
+      </span>
     </div>
   );
 }

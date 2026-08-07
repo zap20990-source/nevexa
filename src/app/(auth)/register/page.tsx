@@ -56,13 +56,14 @@ export default function RegisterPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-6">
+          <Link href="/" className="inline-flex mb-8">
             <Image
               src="/images/logo.png"
               alt="NEVEXA"
-              width={140}
-              height={36}
-              className="h-10 w-auto"
+              width={180}
+              height={48}
+              className="h-12 w-auto drop-shadow-sm"
+              priority
             />
           </Link>
           <h1 className="text-2xl font-bold font-heading text-dark dark:text-white mb-2">

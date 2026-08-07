@@ -48,9 +48,9 @@ export function Navbar() {
             <Image
               src="/images/logo.png"
               alt="NEVEXA"
-              width={140}
-              height={36}
-              className="h-9 w-auto group-hover:scale-105 transition-transform"
+              width={160}
+              height={40}
+              className="h-10 w-auto group-hover:scale-105 transition-transform drop-shadow-sm"
               priority
             />
           </Link>

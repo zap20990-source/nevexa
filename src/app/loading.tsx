@@ -4,12 +4,24 @@ export default function Loading() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center">
       <div className="text-center">
-        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 animate-bounce overflow-hidden">
-          <Image src="/images/nex.png" alt="NEX" width={40} height={40} className="w-10 h-10 object-contain" />
+        <div className="relative mx-auto mb-6 w-20 h-20">
+          <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse" />
+          <div className="w-20 h-20 rounded-full bg-white dark:bg-dark-card border border-primary/10 flex items-center justify-center overflow-hidden animate-bounce relative">
+            <Image
+              src="/images/nex.png"
+              alt="NEX"
+              width={48}
+              height={48}
+              className="w-12 h-12 object-contain"
+            />
+          </div>
         </div>
-        <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
-          NEX está cargando...
-        </p>
+        <div className="space-y-2">
+          <div className="h-1 w-24 mx-auto rounded-full bg-primary/20 animate-pulse" />
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            NEX está preparando todo...
+          </p>
+        </div>
       </div>
     </div>
   );
