@@ -38,7 +38,7 @@ const product = {
   sales: 1234,
   brand: "AudioTech",
   category: "Tecnología",
-  has3D: true,
+  has3D: false,
   modelUrl: undefined,
   images: ["🎧", "🎵", "🎼", "🎤"],
   variants: [
