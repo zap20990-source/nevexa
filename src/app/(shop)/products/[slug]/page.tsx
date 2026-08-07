@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -276,7 +276,8 @@ export default function ProductDetailPage() {
   const slug = (params.slug as string) || "";
   const product = productsData[slug] || defaultProduct;
   const router = useRouter();
-  const { data: session, status: authStatus } = useSession();
+  const { data: session } = useSession();
+  const [mounted, setMounted] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0].id);
@@ -284,6 +285,8 @@ export default function ProductDetailPage() {
   const addItem = useCartStore((s) => s.addItem);
   const { isFavorite, toggle } = useFavorites();
   const fav = slug ? isFavorite(slug) : false;
+
+  useEffect(() => { setMounted(true); }, []);
 
   const discount = product.comparePrice
     ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
@@ -353,14 +356,14 @@ export default function ProductDetailPage() {
                   -{discount}%
                 </span>
               )}
-              {authStatus === "authenticated" && (
+              {mounted && session ? (
                 <button
                   onClick={() => toggle(slug || product.id)}
                   className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
                 >
                   <Heart className={`w-5 h-5 ${fav ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
                 </button>
-              )}
+              ) : null}
 
               {viewMode === "3d" && product.has3D ? (
                 <Product3DViewer type="figure" modelUrl={product.modelUrl} />
